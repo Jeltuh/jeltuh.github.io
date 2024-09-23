@@ -1,16 +1,23 @@
 .main-wrapper{
     width: 100%;
     height: 100%;
+    display: flex;
+    background-color: black;
 }
 
-a.button {
-    display: flex;
-    justify-content: end;
-    align-items: center;
+.button {
     padding: 1px 6px;
     border: 1px outset buttonborder;
     border-radius: 3px;
-    color: buttontext;
-    background-color: buttonface;
+    color: purple;
+    background-color: green;
     text-decoration: none;
+}
+.fcc-btn {
+    background-color: #199319;
+    color: white;
+  }
+  
+*{
+    background-color: black;
 }
