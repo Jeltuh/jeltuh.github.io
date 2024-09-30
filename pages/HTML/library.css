@@ -1,0 +1,46 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+}
+
+body{
+    background: #eee;
+}
+
+.container{
+    width: 96%;
+    margin: 20px auto;
+}
+
+h1{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-transform: uppercase;
+    margin: 10px;
+}
+
+.lesson{
+    width: 48%;
+    float: left;
+    background: #fff;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+.icon{
+    width: 22%;
+    height: 15%;
+    float: left;
+    line-height: 200px;
+}
+
+button{
+    background: #76c2af;
+    border-color: #76c2af;
+    border-radius: 7px;
+    padding: 6px 6px;
+    color: #fff;
+    float: right;
+    cursor: pointer;
+}

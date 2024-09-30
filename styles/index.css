@@ -1,3 +1,5 @@
+
+
 header {
     padding: 1rem 2rem;
     margin-left: 5rem;
@@ -17,8 +19,8 @@ header {
 }
 
 .navbar {
-  margin-left: 2rem;
-  display: flex;
+    margin-left: 2rem;
+    display: flex;
     justify-content: space-between;
     align-items: center;
 }
