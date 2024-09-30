@@ -14,7 +14,7 @@ header {
 .navbar-items ul{
     list-style: none;
     display: flex;
-    margin: 0;
+    margin: 0;  
     padding: 0;
 }
 
