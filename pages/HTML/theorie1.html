@@ -12,7 +12,7 @@
 <body>
     <header>
         <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light py-3" style="background-color: #0d1117;">
-            <a class="navbar-brand" href="#">GeoAnalyses</a>
+            <a class="navbar-brand" href="../../index.html">GeoAnalyses</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,26 +20,35 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Library
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Getal en Ruimte VWO 4</a>
-                            <a class="dropdown-item" href="#">Getal en Ruimte VWO 5</a>
+                            <a class="dropdown-item" href="./libraryvwo4.html">Getal en Ruimte VWO 4</a>
+                            <a class="dropdown-item" href="./libraryvwo5.html">Getal en Ruimte VWO 5</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="#">Alle opdrachten</a>
+                            <a class="dropdown-item" href="./library.html">Alle opdrachten</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Theorie
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="./theorievwo4.html">Getal en Ruimte VWO 4</a>
+                            <a class="dropdown-item" href="./theorievwo5.html">Getal en Ruimte VWO 5</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="./theorie.html">Alle theorie</a>
                         </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Hoe werkt het?</a>
+                        <a class="nav-link" href="./hoewerkthet.html">Hoe werkt het?</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contact</a>
+                        <a class="nav-link" href="./contact.html">Contact</a>
                     </li>
                 </ul>
                 <form class="form-inline my-2 my-lg-0 mx-auto">
@@ -51,10 +60,11 @@
                         aria-haspopup="true" aria-expanded="false">
                         Login
                     </button>
-                    <div class="dropdown-menu">
+                    <div class="dropdown-menu" style="right: 0; left: unset;">
                         <form class="form-horizontal" method="post" accept-charset="UTF-8">
                             <input class="form-control login" type="text" name="username" placeholder="Username.."><br>
-                            <input class="form-control login" type="password" name="password" placeholder="Password.."><br>
+                            <input class="form-control login" type="password" name="password"
+                                placeholder="Password.."><br>
                             <input class="btn btn-primary" type="submit" name="submit" value="Login">
                         </form>
                     </div>
