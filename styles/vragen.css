@@ -1,20 +1,23 @@
 html, body {
     max-width: 100%;
     overflow-x: hidden;
+    overflow-y: hidden;
     height: 100%;
     margin: 0;
 }
 
-  .wrapper {
-    min-height: 75%;
-  
-    /* Equal to height of footer */
-    /* But also accounting for potential margin-bottom of last child */
+.body-text{
+    padding: 3%;
+}
+
+.wrapper {
+    min-height: 75%; 
   }
-  .footer,
-  .push {
+
+.footer,
+.push {
     height: 50px;
-  }
+}
 
   /* footer {
     background: #42A5F5;
@@ -26,10 +29,10 @@ html, body {
     justify-content: space-between; 
   } */
 
-  .footer button{
+.footer button{
     height: 50px;
     right: 500px;
-  }
+}
 
 footer {
     position: fixed;
