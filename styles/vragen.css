@@ -16,16 +16,29 @@ html, body {
     height: 50px;
   }
 
-  footer {
+  /* footer {
     background: #42A5F5;
     color: white;
     line-height: 50px;
     padding: 0 20px;
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between; /* Can be changed in the live sample */
-  }
+    justify-content: space-between; 
+  } */
 
   .footer button{
     height: 50px;
+    right: 500px;
   }
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #42A5F5;
+    color: white;
+    justify-content: space-between;
+    display: flex;
+    line-height: 50px;
+}
