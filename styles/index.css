@@ -24,3 +24,19 @@ header {
     justify-content: space-between;
     align-items: center;
 }
+
+.welkom{
+    display: flex;
+    justify-content: space-around;
+}
+
+.theorie{
+    margin-right: 10%;
+    display: flex;
+    justify-content: end;
+}
+
+.opdrachten{
+    margin-left: 10%;
+    display: flex;
+}
