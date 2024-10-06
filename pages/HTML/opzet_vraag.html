@@ -102,6 +102,31 @@
             data-placement="left" data-content="Left popover">
             Popover on left
         </button>
+    <h3>Opdracht 1</h3>
+    <!--Ik weet nog niet hoe ik popovers moet initializen, moet volgens mij met javascript in combinatie met een popper plugin maar dat werkt nog niet lekker
+    FF dit comment gemaakt omdat we uiteindelijk alleen dismissible popovers gebruiken.
+
+
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top"
+        data-content="Top popover">
+        Popover on top
+    </button>
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right"
+        data-content="Right popover">
+        Popover on right
+    </button>
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom"
+        data-content="Bottom popover">
+        Popover on bottom
+    </button>
+    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left"
+        data-content="Left popover">
+        Popover on left
+    </button>
+    -->
+    <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+        title="Theorie"
+        data-content="Hier komt de theorie die hoort bij de vraag. Dat is mooi zeg.">Theorie</a>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
             src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
@@ -137,6 +162,9 @@
     <script>
         $(function () {
             $('[data-toggle="popover"]').popover()
+        })
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
         })
     </script>
     </div>
