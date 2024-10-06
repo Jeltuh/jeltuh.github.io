@@ -1,34 +1,31 @@
-header {
-    padding: 1rem 2rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
 }
 
-.navbar-logo {
-    font-size: 2rem;
-    margin-right: auto;
-}
+  .wrapper {
+    min-height: 75%;
+  
+    /* Equal to height of footer */
+    /* But also accounting for potential margin-bottom of last child */
+  }
+  .footer,
+  .push {
+    height: 50px;
+  }
 
-.navbar-items ul{
-    list-style: none;
+  footer {
+    background: #42A5F5;
+    color: white;
+    line-height: 50px;
+    padding: 0 20px;
     display: flex;
-    margin: 0;  
-    padding: 0;
-}
+    flex-flow: row wrap;
+    justify-content: space-between; /* Can be changed in the live sample */
+  }
 
-.navbar {
-    margin-left: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.btn btn-lg btn-danger{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-table, th, td {
-    border: 5px solid black;
+  .footer button{
+    height: 50px;
   }

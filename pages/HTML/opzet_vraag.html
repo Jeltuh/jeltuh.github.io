@@ -82,60 +82,52 @@
     </header>
 
     <br><br><br><br>
-    <h3>Opdracht 1</h3>
-    <!--Ik weet nog niet hoe ik popovers moet initializen, moet volgens mij met javascript in combinatie met een popper plugin maar dat werkt nog niet lekker-->
+    <div class="body-page">
+        <h3>Opdracht 1</h3>
 
 
-    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top"
-        data-content="Top popover">
-        Popover on top
-    </button>
-    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="right"
-        data-content="Right popover">
-        Popover on right
-    </button>
-    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="bottom"
-        data-content="Bottom popover">
-        Popover on bottom
-    </button>
-    <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="left"
-        data-content="Left popover">
-        Popover on left
-    </button>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover" data-placement="top"
+            data-content="Top popover">
+            Popover on top
+        </button>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+            data-placement="right" data-content="Right popover">
+            Popover on right
+        </button>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+            data-placement="bottom" data-content="Bottom popover">
+            Popover on bottom
+        </button>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+            data-placement="left" data-content="Left popover">
+            Popover on left
+        </button>
 
-    <br><br><br><br>
+        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -30%; top:25%"> </iframe>
 
-    <!--Nu mogelijke opdrachten aan het scouten om te behandelen-->
-    <table>
+        <!--Nu mogelijke opdrachten aan het scouten om te behandelen-->
         <!--Paragraaf 1 heeft niet veel met GeoGebra te maken, maar het is misschien wel
-        handig om de basis op de website te staan aangezien je dat wel ook moet snappen voor
-        de moeilijkere opgaven.-->
-        <tr>
-            <th>Paragraaf 1 </th>
-            <td>Opdracht 9 </td>
-            <td>Opdracht 17 </td>
-            <td>Opdracht 19 </td>
-        </tr>
-        <tr>
-            <!--Paragraaf 2 is wel goed te doen met GeoGebra, veel Sinusoïden en dus veel plaatjes.
-            Ook hier weer wat basisvragen om de theorie behandeld te hebben, ook veel herhaling in de vragen,
-            dus misschien op de website ook wat herhaling te zien. Onderstaande zijn in ieder geval goede beginners.-->
-            <th>Paragraaf 2 </th>
-            <td>Opdracht 31 </td>
-            <td>Opdracht 35? </td>
-            <td>Opdracht 44 </td>
-        </tr>
-        <tr>
-            <th>Paragraaf 3</th>
-            <td>Opdracht ...</td>
-        </tr>
-        <tr>
-            <th>Paragraaf 4</th>
-            <td>Opdracht ...</td>
-        </tr>
-    </table>
+    handig om de basis op de website te staan aangezien je dat wel ook moet snappen voor
+    de moeilijkere opgaven.-->
 
+        <!--Paragraaf 2 is wel goed te doen met GeoGebra, veel Sinusoïden en dus veel plaatjes.
+    Ook hier weer wat basisvragen om de theorie behandeld te hebben, ook veel herhaling in de vragen,
+    dus misschien op de website ook wat herhaling te zien. Onderstaande zijn in ieder geval goede beginners.-->
 
+    </div>
+
+    <div class="wrapper">
+      <div class="push"></div>
+    </div>
+    <footer class="footer">
+        <button type="button" class="btn btn-primary">Vorige</button>
+        <p>Opdracht 1</p>
+        <button type="button" class="btn btn-primary">Volgende</button>
+    </footer>
+
+    <div>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
@@ -147,6 +139,7 @@
             $('[data-toggle="popover"]').popover()
         })
     </script>
+    </div>
 
 </body>
 
