@@ -37,11 +37,15 @@ html, body {
 footer {
     position: fixed;
     bottom: 0;
-    left: 0;
+
     width: 100%;
     background-color: #42A5F5;
     color: white;
-    justify-content: space-between;
+    justify-content: space-around;
     display: flex;
     line-height: 50px;
+}
+
+#startbutton{
+  visibility: hidden;
 }
