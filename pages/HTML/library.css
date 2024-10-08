@@ -4,10 +4,6 @@
     box-sizing: border-box;
 }
 
-body{
-    background: #eee;
-}
-
 .container{
     width: 96%;
     margin: 20px auto;
@@ -22,7 +18,7 @@ h1{
 .lesson{
     width: 48%;
     float: left;
-    background: #fff;
+    background: #f1f1f1;
     margin: 10px;
     padding: 10px;
     border-radius: 15px;
@@ -47,7 +43,7 @@ button{
     cursor: pointer;
 }
 
-#knop{
+.knop{
     position: relative; 
     bottom:-5px; 
     width: 90%; 

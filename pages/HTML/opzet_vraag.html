@@ -87,7 +87,7 @@
 
         <h3>Opdracht 1</h3>
 
-        <p>Deze opdracht komt overeen met vraag 7 in je werkboek.</p>
+        <p><i>Deze opdracht komt overeen met vraag 7 in je werkboek.</i></p>
         <p>Bij deze opdracht is te zien dat het verplaatsen van punt B op de eenheidscirkel
             er voor zorgt dat de hoek tot punt B ook veranderd.</p>
         <p>Kijk door het verschuiven van
@@ -103,68 +103,76 @@
         <br>
         <p>Zie de bijlage voor de figuur.</p>
 
-        <!-- Modal Bijlage -->
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
-            bijlage</button>
 
-        <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg">
-                <div class="modal-content">
-                    <img src="../../assets/hf8-vraag7.png">
+        <div class="buttons">
+            <!-- Modal Bijlage -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
+                bijlage</button>
+
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/hf8-vraag7.png">
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <br><br><br>
-        <p>Controleer hier je antwoorden en bekijk de bijbehorende theorie.</p>
+            <br><br><br>
+            <p>Controleer hier je antwoorden en bekijk de bijbehorende theorie.</p>
 
-        <!-- -->
+            <!-- -->
 
-        <!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+            <!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
             title="Theorie" data-content="Hier komt de theorie die hoort bij de vraag. Dat is mooi zeg.">Theorie</a> -->
-        
-            <button type="button" class="btn btn-primary" onclick="naar_theorie_8_1()">Theorie</button>
 
-        <!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
+            <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+            <!-- <a tabindex="0" class="btn btn-lg btn-danger" role="button" data-toggle="popover" data-trigger="focus"
             title="Uitwerkingen"
             data-content="A: De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft 35,90...°. Afgerond is de hoek a dus ≈ 35,9°.
     B: De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft 70,05...°. In het plaatje is te zien dat punt B voorbij de 90° komt.
     Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit op a ≈ 180° - 70,1° ≈ 109,9°">Uitwerkingen</a> -->
 
 
-        <!-- Modal Uitwerkingen -->
-        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
-            Uitwerkingen
-        </button>
+            <!-- Modal Uitwerkingen -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+                Uitwerkingen
+            </button>
 
-        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-            aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Uitwerkingen</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <b>A:</b> <i>De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft
-                            35,90...°. Afgerond is de hoek a dus ≈ <b>35,9°</b>.</i><br><br>
-                        <b>B:</b> <i>De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft 70,05...°.
-                            In het plaatje is te zien dat punt B voorbij de 90° komt.</i><br>
-                        Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit op a
-                        ≈ 180° - 70,1° ≈ <b>109,9°</b>.
-                    </div>
-                    <div class="modal-footer">
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Uitwerkingen</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <b>A:</b> <i>De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft
+                                35,90...°. Afgerond is de hoek a dus ≈ <b>35,9°</b>.</i><br><br>
+                            <b>B:</b> <i>De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft
+                                70,05...°.
+                                In het plaatje is te zien dat punt B voorbij de 90° komt.</i><br>
+                            Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit
+                            op a
+                            ≈ 180° - 70,1° ≈ <b>109,9°</b>.
+                        </div>
+                        <div class="modal-footer">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- -->
 
+        <br><br><br><br>
 
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+        </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
             src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"

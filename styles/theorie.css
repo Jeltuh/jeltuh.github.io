@@ -28,3 +28,16 @@
     width: 96%;
     margin: 20px auto;
 }
+
+
+.list-group button{
+    position: absolute; 
+    right: 3%; 
+    bottom: 10%;
+}
+
+.containers{
+    border-width: 10px;
+    border-color: black;
+}
+

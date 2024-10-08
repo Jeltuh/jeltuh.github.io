@@ -4,6 +4,7 @@ html, body {
     overflow-y: hidden;
     height: 100%;
     margin: 0;
+    position: relative;
 }
 
 .body-text{
@@ -19,16 +20,6 @@ html, body {
     height: 50px;
 }
 
-  /* footer {
-    background: #42A5F5;
-    color: white;
-    line-height: 50px;
-    padding: 0 20px;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between; 
-  } */
-
 .footer button{
     height: 50px;
     right: 500px;
@@ -39,7 +30,7 @@ footer {
     bottom: 0;
 
     width: 100%;
-    background-color: #42A5F5;
+    background-color: #087cfc;
     color: white;
     justify-content: space-around;
     display: flex;
