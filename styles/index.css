@@ -1,9 +1,4 @@
 
-
-
-.theorie{
-    margin-right: 10%;
-    display: flex;
-    justify-content: end;
+.card-deck{
+    width: 75rem; min-height: 20rem; display: flex; justify-content: center;
 }
-
