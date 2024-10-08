@@ -26,13 +26,15 @@ h1{
     margin: 10px;
     padding: 10px;
     border-radius: 15px;
+    position: relative;
+    min-height: 230px;
 }
 
 .icon{
     width: 22%;
     height: 15%;
     float: left;
-    line-height: 200px;
+    line-height: 150px;
 }
 
 button{
@@ -43,4 +45,11 @@ button{
     color: #fff;
     float: right;
     cursor: pointer;
+}
+
+#knop{
+    position: relative; 
+    bottom:-5px; 
+    width: 90%; 
+    right: 5%;
 }
