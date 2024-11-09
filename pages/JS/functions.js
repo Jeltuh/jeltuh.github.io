@@ -1,5 +1,5 @@
 function start_opgave1() {
-    window.open("opzet_vraag.html","_self");
+    window.open("opzet_vraag1.html","_self");
 }
 
 function start_opgave2() {
