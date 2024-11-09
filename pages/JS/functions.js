@@ -27,3 +27,9 @@ function ehc_opgave(i) {
     var opdracht = "opzet_vraag" + text + ".html";
     window.open(opdracht,"_self");
 }
+
+function rkln_opgave(i) {
+    let text = i.toString();
+    var opdracht = "raaklijn" + text + ".html";
+    window.open(opdracht,"_self");
+}
