@@ -44,13 +44,22 @@ onAuthStateChanged(auth, (user) => {
 });
 
 // Functie om punten op te slaan in Firestore
-async function savePoints(userId, points) {
+async function savePoints(userId, additionalPoints) {
     try {
         const userRef = doc(db, "users", userId);
-        await setDoc(userRef, { points: points }, { merge: true });
-        console.log("Punten succesvol opgeslagen!");
+        const docSnap = await getDoc(userRef);
+
+        let currentPoints = 0;
+        if (docSnap.exists()) {
+            currentPoints = docSnap.data().points || 0; // Get current points or default to 0
+        }
+
+        const newPoints = currentPoints + additionalPoints; // Add the new points
+
+        await setDoc(userRef, { points: newPoints }, { merge: true });
+        console.log("Points successfully updated!");
     } catch (error) {
-        console.error("Fout bij het opslaan van punten: ", error);
+        console.error("Error saving points: ", error);
     }
 }
 
