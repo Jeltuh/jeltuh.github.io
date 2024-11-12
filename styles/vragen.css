@@ -7,13 +7,13 @@ html, body {
     position: relative;
 }
 
-.body-text{
+#body-text{
     padding: 3%;
 }
 
 .wrapper {
     min-height: 75%; 
-  }
+  }x
 
 .footer,
 .push {
@@ -34,9 +34,13 @@ footer {
     color: white;
     justify-content: space-around;
     display: flex;
-    line-height: 50px;
+    line-height: 30px;
 }
 
 #startbutton{
   visibility: hidden;
+}
+
+body.modal-open div.modal-backdrop { 
+    z-index: 0; 
 }

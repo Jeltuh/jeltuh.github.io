@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
-import { getFirestore, doc, setDoc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 
 
@@ -190,7 +190,7 @@ const registerModal = new bootstrap.Modal(document.getElementById('registerModal
 
 // Open Register Modal from Login Modal
 document.getElementById("openRegisterModal").addEventListener("click", () => {
-    loginModal.hide(); // Close the login modal
+    $('#loginModal').modal('hide')
     registerModal.show(); // Show the register modal
 });
 
@@ -345,5 +345,163 @@ logoutButton2.addEventListener("click", async () => {
             setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
           }
           
-          //Simulating a call to your API
-          showToast("Oh no...");
+          //Simulating a call to your API   
+
+
+
+          
+
+          
+
+          function checkAnswer() {
+            const questionId = getQuestionIdFromUrl();
+            const questionData = questions[questionId];
+            const userAnswer = document.getElementById("answer").value.trim();
+
+                        if (questionData) {
+              document.getElementById("question").textContent = questionData.question;
+              document.getElementById("hint").textContent = questionData.hint;
+              document.getElementById("hint").style.display = "none";
+            } else {
+              console.error("Vraag niet gevonden.");
+            }
+          
+            if (questionData && userAnswer === questionData.answer) {
+              alert("Correct! Ga door naar de volgende vraag.");
+              window.location.href = `question.html?id=${parseInt(questionId) + 1}`;
+            } else {
+              attempts++;
+              alert("Fout antwoord, probeer het opnieuw.");
+              if (attempts >= 2) {
+                document.getElementById("hint").style.display = "block";
+              }
+            }
+          }
+          
+          
+
+
+    
+
+          function getQuestionIdFromUrl() {
+            const params = new URLSearchParams(window.location.search);
+            return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
+          }
+          
+          function loadQuestionContent() {
+            const questionId = getQuestionIdFromUrl();
+            const questionContainer = document.getElementById("body-text");
+          
+            // Clear the container first
+            questionContainer.innerHTML = "";
+          
+            if (questionId === 1) {
+              questionContainer.innerHTML = `
+                        <h3>Opdracht 1</h3>
+
+        <p><i>Deze opdracht komt overeen met vraag 7 in je werkboek.</i></p>
+        <p>Bij deze opdracht is te zien dat het verplaatsen van punt B op de eenheidscirkel
+            er voor zorgt dat de hoek tot punt B ook veranderd.</p>
+        <p>Kijk door het verschuiven van
+            punt B op de eenheidscirkel wat dit betekent voor de hoek a.</p>
+        <p>Tip: De cos(a) veranderd met de x-waarde van B, en de sin(a) veranderd met de y-waarde van B</p>
+
+
+        <p><b> 7A.</b> Xb = 0,81</p>
+        <p><b> 7B.</b> Yb = 0,94</p>
+        <p><b> 7C.</b> Xb = 0,26</p>
+        <p><b> 7D.</b> Yb = -0,22</p>
+
+        <br>
+        <p>Zie de bijlage voor de figuur.</p>
+
+
+        <div class="buttons">
+            <!-- Modal Bijlage -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
+                bijlage</button>
+
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/hf8-vraag7.png">
+                    </div>
+                </div>
+            </div>
+
+            
+            <p>Controleer hier je antwoorden en bekijk de bijbehorende theorie.</p>
+
+
+            <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+
+            <!-- Modal Uitwerkingen -->
+            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
+                Uitwerkingen
+            </button>
+
+            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Uitwerkingen</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <b>A:</b> <i>De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft
+                                35,90...°. Afgerond is de hoek a dus ≈ <b>35,9°</b>.</i><br><br>
+                            <b>B:</b> <i>De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft
+                                70,05...°.
+                                In het plaatje is te zien dat punt B voorbij de 90° komt.</i><br>
+                            Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit
+                            op a
+                            ≈ 180° - 70,1° ≈ <b>109,9°</b>.
+                        </div>
+                        <div class="modal-footer">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -36%; top:20%"> </iframe>
+
+        <div class="wrapper">
+        <div class="push"></div>
+    </div>
+    <footer class="footer">
+        <button type="button" class="btn btn-primary" id="startbutton">Vorige</button>
+        <p>Opdracht 1</p>
+        <button type="button" class="btn btn-primary" onclick="ehc_opgave(2)">Volgende</button>
+    </footer>
+              `;
+            } else if (questionId === 2) {
+              questionContainer.innerHTML = `
+                <h2>Vraag 2</h2>
+                <p>Wat is de afgeleide van x^2?</p>
+                <input type="text" id="answer">
+                <button onclick="checkAnswer(2)">Controleer antwoord</button>
+              `;
+            } else {
+              questionContainer.innerHTML = `
+                <h2>Vraag ${questionId}</h2>
+                <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
+              `;
+            }
+          }
+          
+          // Call the function when the page loads
+          window.onload = loadQuestionContent;
+          
+          
+
+
+
+
