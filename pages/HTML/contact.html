@@ -11,7 +11,8 @@
     <!--  -->
 
     <link rel="stylesheet" href="./pages/CSS/index.css">
-    <title>Placeholder | ...</title>
+    <script src="../JS/functions.js"></script>
+    <title>Contact</title>
 </head>
 
 <body>
@@ -82,6 +83,52 @@
 
     <!-- Hier beginnen met typen -->
 
+    <div class="jumbotron">
+        <h1 class="display-4">Contact</h1>
+        <p class="lead">Wil je contact met ons opnemen voor wat voor reden dan ook?</p>
+        <hr class="my-4">
+        <p>Hiermee kan je ons bereiken voor vragen of suggesties:</p>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+                data-placement="bottom" data-content="Email: opjtimmerman@gmail.com
+                Tel: 06 33786232">
+            Olivier Timmerman
+        </button>
+        <button type="button" class="btn btn-secondary" data-container="body" data-toggle="popover"
+                data-placement="right" data-content="Email: jelte@jelte.nl
+                Tel: 12 34567890">
+            Jelte Jonker
+        </button>
+      </div>
+    </div>
+
+    <div style="display: flex; justify-content: space-evenly;">
+        <div class="card" style="width: 18rem;">
+            <img src="../../assets/photo1.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Jelte Jonker</h5>
+              <p class="card-text">Jelte vertelt hier iets over zichzelf</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Email: jelte@jelte.nl</li>
+              <li class="list-group-item">Tel: 06 12345678</li>
+              <li class="list-group-item">Klas: V6A</li>
+            </ul>
+          </div>
+          
+        <div class="card" style="width: 18rem;">
+            <img src="../../assets/photo2.png" class="card-img-top" alt="...">
+            <div class="card-body">
+              <h5 class="card-title">Olivier Timmerman</h5>
+              <p class="card-text">Olivier Timmerman is echt een coole jongen</p>
+            </div>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item">Email: opjtimmerman@gmail.com</li>
+              <li class="list-group-item">Tel: 06 33786232</li>
+              <li class="list-group-item">Klas: V6C</li>
+            </ul>
+        </div>    
+    </div>
+
     <!--Script for Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -92,6 +139,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <script>
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+    </script>
 </body>
 
 </html>
