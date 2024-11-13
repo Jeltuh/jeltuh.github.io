@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword} from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
 import { getFirestore, doc, setDoc, getDoc, updateDoc, collection } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
 
@@ -45,7 +45,7 @@ onAuthStateChanged(auth, (user) => {
             await savePoints(userId, 10); // Adds 10 points
             window.location.href = "library.html"; // Redirects to the homepage
         });
-        
+
     } else {
         console.log("Geen gebruiker ingelogd.");
     }
@@ -233,83 +233,83 @@ document.querySelectorAll('.btn-close').forEach(button => {
 });
 
 
-         // Open account modal
-         document.getElementById("openAccountModal").addEventListener("click", async () => {
-            $('#accountModal').modal('show');
-            const user = auth.currentUser;
-            if (user) {
-                const docRef = doc(db, "users", user.uid);
-                const docSnap = await getDoc(docRef);
-                if (docSnap.exists()) {
-                    document.getElementById("firstName").value = docSnap.data().firstName || "";
-                    document.getElementById("lastName").value = docSnap.data().lastName || "";
-                }
-            }
-        });
+// Open account modal
+document.getElementById("openAccountModal").addEventListener("click", async () => {
+    $('#accountModal').modal('show');
+    const user = auth.currentUser;
+    if (user) {
+        const docRef = doc(db, "users", user.uid);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+            document.getElementById("firstName").value = docSnap.data().firstName || "";
+            document.getElementById("lastName").value = docSnap.data().lastName || "";
+        }
+    }
+});
 
-        // Update first name and last name
-        document.getElementById("nameForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+// Update first name and last name
+document.getElementById("nameForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-            const user = auth.currentUser;
-            const firstName = document.getElementById("firstName").value;
-            const lastName = document.getElementById("lastName").value;
+    const user = auth.currentUser;
+    const firstName = document.getElementById("firstName").value;
+    const lastName = document.getElementById("lastName").value;
 
-            if (user) {
-                if (!firstName || !lastName) {
-                    alert("All fields must be filled.");
-                    return;
-                }
-                // Update Firestore data
-                const userDocRef = doc(db, "users", user.uid);
-                await updateDoc(userDocRef, { firstName, lastName });
-                alert("Name details updated successfully.");
-            }
-        });
+    if (user) {
+        if (!firstName || !lastName) {
+            alert("All fields must be filled.");
+            return;
+        }
+        // Update Firestore data
+        const userDocRef = doc(db, "users", user.uid);
+        await updateDoc(userDocRef, { firstName, lastName });
+        alert("Name details updated successfully.");
+    }
+});
 
-        // Update password
-        document.getElementById("passwordForm").addEventListener("submit", async (e) => {
-            e.preventDefault();
+// Update password
+document.getElementById("passwordForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
 
-            const user = auth.currentUser;
-            const oldPassword = document.getElementById("oldPassword").value;
-            const newPassword = document.getElementById("newPassword").value;
-            const confirmNewPassword = document.getElementById("confirmNewPassword").value;
+    const user = auth.currentUser;
+    const oldPassword = document.getElementById("oldPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+    const confirmNewPassword = document.getElementById("confirmNewPassword").value;
 
-            if (user) {
-                // Password change validation and process
-                if (!oldPassword || !newPassword || !confirmNewPassword) {
-                    alert("To change the password, all password fields must be filled.");
-                    return;
-                }
-                if (newPassword !== confirmNewPassword) {
-                    alert("New passwords do not match.");
-                    return;
-                }
+    if (user) {
+        // Password change validation and process
+        if (!oldPassword || !newPassword || !confirmNewPassword) {
+            alert("To change the password, all password fields must be filled.");
+            return;
+        }
+        if (newPassword !== confirmNewPassword) {
+            alert("New passwords do not match.");
+            return;
+        }
 
-                const credential = EmailAuthProvider.credential(user.email, oldPassword);
-                try {
-                    await reauthenticateWithCredential(user, credential);
-                    await updatePassword(user, newPassword);
-                    alert("Password updated successfully.");
-                } catch (error) {
-                    alert("Failed to reauthenticate. Please check your current password.");
-                    console.error("Reauthentication error:", error);
-                }
-            }
-        });
+        const credential = EmailAuthProvider.credential(user.email, oldPassword);
+        try {
+            await reauthenticateWithCredential(user, credential);
+            await updatePassword(user, newPassword);
+            alert("Password updated successfully.");
+        } catch (error) {
+            alert("Failed to reauthenticate. Please check your current password.");
+            console.error("Reauthentication error:", error);
+        }
+    }
+});
 
-        // Logout
-        document.getElementById("logoutButton").addEventListener("click", async (e) => {
-            e.preventDefault();
-            try {
-                await signOut(auth);
-                $('#accountModal').modal('hide');
-            } catch (error) {
-                console.error("Logout error:", error);
-                alert("Logout failed. Please try again.");
-            }
-        });
+// Logout
+document.getElementById("logoutButton").addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+        await signOut(auth);
+        $('#accountModal').modal('hide');
+    } catch (error) {
+        console.error("Logout error:", error);
+        alert("Logout failed. Please try again.");
+    }
+});
 
 // Logout button in the account dropdown
 logoutButton2.addEventListener("click", async () => {
@@ -317,86 +317,86 @@ logoutButton2.addEventListener("click", async () => {
     window.location.reload(); // Reload to reflect changes in the UI
 });
 
-        // Logout
-        document.getElementById("logoutButton2").addEventListener("click", async (e) => {
-            e.preventDefault();
-            try {
-                await signOut(auth);
-                $('#accountModal').modal('hide');
-            } catch (error) {
-                console.error("Logout error:", error);
-                alert("Logout failed. Please try again.");
-            }
-        });
-        
-
-        //toast
-          function showToast(content = "Unknown error") { //You can change the default value
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar");
-            
-            //Change the text (not mandatory, but I think you might be willing to do it)
-            x.innerHTML = content;
-          
-            // Add the "show" class to DIV
-            x.className = "show";
-          
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
-          }
-          
-          //Simulating a call to your API   
+// Logout
+document.getElementById("logoutButton2").addEventListener("click", async (e) => {
+    e.preventDefault();
+    try {
+        await signOut(auth);
+        $('#accountModal').modal('hide');
+    } catch (error) {
+        console.error("Logout error:", error);
+        alert("Logout failed. Please try again.");
+    }
+});
 
 
+//toast
+function showToast(content = "Unknown error") { //You can change the default value
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar");
 
-          
+    //Change the text (not mandatory, but I think you might be willing to do it)
+    x.innerHTML = content;
 
-          
+    // Add the "show" class to DIV
+    x.className = "show";
 
-          function checkAnswer() {
-            const questionId = getQuestionIdFromUrl();
-            const questionData = questions[questionId];
-            const userAnswer = document.getElementById("answer").value.trim();
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+}
 
-                        if (questionData) {
-              document.getElementById("question").textContent = questionData.question;
-              document.getElementById("hint").textContent = questionData.hint;
-              document.getElementById("hint").style.display = "none";
-            } else {
-              console.error("Vraag niet gevonden.");
-            }
-          
-            if (questionData && userAnswer === questionData.answer) {
-              alert("Correct! Ga door naar de volgende vraag.");
-              window.location.href = `question.html?id=${parseInt(questionId) + 1}`;
-            } else {
-              attempts++;
-              alert("Fout antwoord, probeer het opnieuw.");
-              if (attempts >= 2) {
-                document.getElementById("hint").style.display = "block";
-              }
-            }
-          }
-          
-          
+//Simulating a call to your API   
 
 
-    
 
-          function getQuestionIdFromUrl() {
-            const params = new URLSearchParams(window.location.search);
-            return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
-          }
-          
-          function loadQuestionContent() {
-            const questionId = getQuestionIdFromUrl();
-            const questionContainer = document.getElementById("body-text");
-          
-            // Clear the container first
-            questionContainer.innerHTML = "";
-          
-            if (questionId === 1) {
-              questionContainer.innerHTML = `
+
+
+
+
+function checkAnswer() {
+    const questionId = getQuestionIdFromUrl();
+    const questionData = questions[questionId];
+    const userAnswer = document.getElementById("answer").value.trim();
+
+    if (questionData) {
+        document.getElementById("question").textContent = questionData.question;
+        document.getElementById("hint").textContent = questionData.hint;
+        document.getElementById("hint").style.display = "none";
+    } else {
+        console.error("Vraag niet gevonden.");
+    }
+
+    if (questionData && userAnswer === questionData.answer) {
+        alert("Correct! Ga door naar de volgende vraag.");
+        window.location.href = `question.html?id=${parseInt(questionId) + 1}`;
+    } else {
+        attempts++;
+        alert("Fout antwoord, probeer het opnieuw.");
+        if (attempts >= 2) {
+            document.getElementById("hint").style.display = "block";
+        }
+    }
+}
+
+
+
+
+
+
+function getQuestionIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
+}
+
+function loadQuestionContent() {
+    const questionId = getQuestionIdFromUrl();
+    const questionContainer = document.getElementById("body-text");
+
+    // Clear the container first
+    questionContainer.innerHTML = "";
+
+    if (questionId === 1) {
+        questionContainer.innerHTML = `
                         <h3>Opdracht 1</h3>
 
         <p><i>Deze opdracht komt overeen met vraag 7 in je werkboek.</i></p>
@@ -476,32 +476,171 @@ logoutButton2.addEventListener("click", async () => {
         <div class="wrapper">
         <div class="push"></div>
     </div>
-    <footer class="footer">
-        <button type="button" class="btn btn-primary" id="startbutton">Vorige</button>
-        <p>Opdracht 1</p>
-        <button type="button" class="btn btn-primary" onclick="ehc_opgave(2)">Volgende</button>
-    </footer>
+
               `;
-            } else if (questionId === 2) {
-              questionContainer.innerHTML = `
+    } else if (questionId === 2) {
+        questionContainer.innerHTML = `
                 <h2>Vraag 2</h2>
                 <p>Wat is de afgeleide van x^2?</p>
                 <input type="text" id="answer">
                 <button onclick="checkAnswer(2)">Controleer antwoord</button>
               `;
-            } else {
-              questionContainer.innerHTML = `
+    } else {
+        questionContainer.innerHTML = `
                 <h2>Vraag ${questionId}</h2>
                 <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
               `;
+    }
+}
+
+// Call the function when the page loads
+
+
+
+
+
+
+// Example user and lesson IDs
+const userId = "wmn89rkE03Yh2sAdV2sS4W6UwY02";  // Replace with your actual user ID
+const lessonId = "lessonehc";  // Replace with your actual lesson ID
+
+// Get the question number from the URL parameter `id`
+const urlParams = new URLSearchParams(window.location.search);
+const questionId = parseInt(urlParams.get("id")) || 1;  // Defaults to 1 if `id` is not present
+
+// Get the reference to the lesson document
+const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
+
+// Function to initialize the current question on page load
+async function initializeCurrentQuestion() {
+    try {
+        const docSnap = await getDoc(lessonRef);
+
+        if (docSnap.exists()) {
+            const currentQuestion = docSnap.data().current_question || 1;
+
+            // Check if the URL `id` matches the current question; if not, redirect to the current question
+            if (questionId !== currentQuestion) {
+                window.location.href = `test2.html?id=${currentQuestion}`;
             }
-          }
-          
-          // Call the function when the page loads
-          window.onload = loadQuestionContent;
-          
-          
+        } else {
+            console.error("No such document!");
+        }
+    } catch (error) {
+        console.error("Error initializing question:", error);
+    }
+}
+
+// Function to go to the next question
+
+
+// Function to mark the lesson as completed
+async function markLessonCompleted() {
+    try {
+        await updateDoc(lessonRef, { completed: true });
+        console.log("Lesson marked as completed.");
+        checkLessonCompletion();
+    } catch (error) {
+        console.error("Error marking lesson as completed:", error);
+    }
+}
+
+// Function to check lesson completion and display the message
+async function checkLessonCompletion() {
+    try {
+        const docSnap = await getDoc(lessonRef);
+
+        if (docSnap.exists()) {
+            const isCompleted = docSnap.data().completed;
+
+            const completionMessage = document.getElementById('completionMessage');
+            if (isCompleted) {
+                completionMessage.style.visibility = 'hidden';  // Show the message
+            } else {
+                completionMessage.style.visibility = 'shown';  // Hide the message
+            }
+        }
+    } catch (error) {
+        console.error("Error checking lesson completion:", error);
+    }
+}
 
 
 
+// Event listener for the "Next Question" button
 
+// Event listener for the "Mark Completed" button
+
+// Initialize the question display and check completion status on page load
+
+function replaceButton() {
+    // Get the original button by its id
+    const oldButton = document.getElementById('next');
+    
+    // Create the new button element
+    const newButton = document.createElement('button');
+    
+    // Set the properties for the new button
+    newButton.type = 'button';
+    newButton.id = "markCompletedButton"
+    newButton.classList.add('btn', 'btn-success');
+    newButton.innerText = 'Inleveren';
+
+    
+    
+    // Replace the old button with the new one
+    oldButton.parentNode.replaceChild(newButton, oldButton);
+
+    newButton.addEventListener('click', markLessonCompleted );
+  }
+  
+
+
+function updateButtons() {
+    const id = getQuestionIdFromUrl();
+
+    const prevButton = document.getElementById('previous');
+    const nextButton = document.getElementById('next');
+
+    // Show/Hide previous button if on the first question
+    if (id === 1) {
+        prevButton.style.visibility = 'hidden'; // Hide previous button
+    } else {
+        prevButton.style.visibility = 'shown'; // Show previous button
+        prevButton.onclick = async function () {
+            const questionId = getQuestionIdFromUrl();
+            const nextQuestion = questionId - 1;
+            await updateDoc(lessonRef, { current_question: nextQuestion });
+            window.location.href = `test2.html?id=${id - 1}`;
+        };
+    }
+
+    // Show/Hide next button if on the last question
+    if (id === 5) {
+        replaceButton();
+    } else {
+        nextButton.style.visibility = 'shown'; // Show next button
+        nextButton.onclick = async function () {
+            const questionId = getQuestionIdFromUrl();
+            const nextQuestion = questionId + 1;
+            await updateDoc(lessonRef, { current_question: nextQuestion });
+            window.location.href = `test2.html?id=${id + 1}`;
+        };
+    }
+}
+
+function laadOpdracht(){
+    const questionId = getQuestionIdFromUrl();
+    document.getElementById("question").innerText = "Opdracht " + questionId;
+}
+
+// Call the function when the page loads
+
+
+window.onload = function () {
+    initializeCurrentQuestion();
+    checkLessonCompletion();
+    loadQuestionContent();
+    updateButtons();
+    laadOpdracht();
+};
