@@ -48,3 +48,5 @@ body.modal-open div.modal-backdrop {
 .body-text{
     padding: 3%;
 }
+
+.modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }

@@ -634,6 +634,8 @@ function laadOpdracht(){
     document.getElementById("question").innerText = "Opdracht " + questionId;
 }
 
+
+
 // Call the function when the page loads
 
 
