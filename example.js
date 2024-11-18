@@ -869,3 +869,36 @@ logoutButton2.addEventListener("click", async () => {
           </body>
           
           </html>
+
+<script>
+          // Example user and lesson IDs
+const userId = "wmn89rkE03Yh2sAdV2sS4W6UwY02";  // Replace with your actual user ID
+const lessonId = "lessonehc";  // Replace with your actual lesson ID
+
+// Get the question number from the URL parameter `id`
+const urlParams = new URLSearchParams(window.location.search);
+const questionId = parseInt(urlParams.get("id")) || 1;  // Defaults to 1 if `id` is not present
+
+// Get the reference to the lesson document
+const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
+
+// Function to initialize the current question on page load
+async function initializeCurrentQuestion() {
+    try {
+        const docSnap = await getDoc(lessonRef);
+
+        if (docSnap.exists()) {
+            const currentQuestion = docSnap.data().current_question || 1;
+
+            // Check if the URL `id` matches the current question; if not, redirect to the current question
+            if (questionId !== currentQuestion) {
+                window.location.href = `test2.html?id=${currentQuestion}`;
+            }
+        } else {
+            console.error("No such document!");
+        }
+    } catch (error) {
+        console.error("Error initializing question:", error);
+    }
+}
+</script>

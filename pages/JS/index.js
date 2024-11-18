@@ -33,26 +33,6 @@ function showMessage(message, divId) {
 }
 
 // Check of de gebruiker ingelogd is
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        const userId = user.uid;
-        console.log("Gebruiker ingelogd:", userId);
-
-        // Voorbeeld om punten op te slaan en weer te geven
-        //savePoints(userId, 10);  // Voeg 10 punten toe
-        // displayPoints(userId);   // Haal en toon de punten
-
-        // Voorbeeld voor een knop
-        const addPointsButton = document.getElementById("addPointsButton");
-        addPointsButton.addEventListener("click", async () => {
-            await savePoints(userId, 10); // Adds 10 points
-            window.location.href = "library.html"; // Redirects to the homepage
-        });
-
-    } else {
-        console.log("Geen gebruiker ingelogd.");
-    }
-});
 
 
 // Functie om punten op te slaan in Firestore
@@ -129,6 +109,8 @@ const accountDropdown = document.getElementById("accountDropdown");
 const accountPoints = document.getElementById("accountPoints");
 const logoutButton = document.getElementById("logoutButton");
 const logoutButton2 = document.getElementById("logoutButton2");
+const protectedContent = document.getElementById("protected-content");
+
 
 // Display the correct button based on auth state
 onAuthStateChanged(auth, async (user) => {
@@ -136,10 +118,9 @@ onAuthStateChanged(auth, async (user) => {
         // User is logged in
         loginButton.classList.add("d-none");
         accountDropdown.classList.remove("d-none");
+        document.getElementById("index-message").innerText = "Klik hier om naar de opdrachten te gaan.";
 
-        if (protectedContent) {
-            protectedContent.style.display = "block"; // Show the content
-        }
+
 
         // Fetch and display the user's points
         const points = await getUserPoints(user.uid);
@@ -150,9 +131,6 @@ onAuthStateChanged(auth, async (user) => {
         loginButton.classList.remove("d-none");
         accountDropdown.classList.add("d-none");
 
-        if (protectedContent) {
-            protectedContent.style.display = "none"; // Ensure the content remains hidden
-        }
     }
 });
 
@@ -173,6 +151,39 @@ document.getElementById("loginSubmitButton").addEventListener("click", async () 
     }
 });
 
+
+const dynamicButton = document.getElementById("inloggen");
+
+// Ensure the button exists
+if (!dynamicButton) {
+    console.error("Button with id 'dynamic-button' not found.");
+}
+
+// Check Firebase Authentication state
+onAuthStateChanged(auth, async (user) => {
+    if (user) {
+        // User is logged in
+        dynamicButton.textContent = "Ga naar";
+        dynamicButton.onclick = () => {
+            window.location.href = "Pages/HTML/library.html";
+        };
+    } else {
+        // User is not logged in
+        dynamicButton.textContent = "Inloggen";
+        dynamicButton.onclick = () => {
+            const loginModal = $('#loginModal');
+                const registerModal = $('#registerModal');
+
+                if (loginModal.length && registerModal.length) {
+                    loginModal.modal('show'); // Show the login modal
+
+                    // Open Register Modal from Login Modal
+                    $('#openRegisterModal').on('click', function() {
+                        loginModal.modal('hide'); // Hide the login modal
+                        registerModal.modal('show'); // Show the register modal
+                    });
+    }
+}}});
 
 // Logout button in the account dropdown
 logoutButton.addEventListener("click", async () => {
@@ -513,44 +524,22 @@ function loadQuestionContent() {
 
 
 
-// Get the full path of the current URL
-const fullPath = window.location.pathname; // e.g., "/folder/page.html"
-
-// Extract the filename without the extension
-const lessonId = fullPath.substring(fullPath.lastIndexOf("/") + 1, fullPath.lastIndexOf("."));
-
-// Listen for authentication state changes
-onAuthStateChanged(auth, async (user) => {
-    if (user) {
-        const userId = user.uid; // Get the authenticated user's ID
-        console.log("User ID:", userId); // Debug log
-
-        // Get lessonId from the URL or default value
-        const urlParams = new URLSearchParams(window.location.search);
 
 
-        console.log("Lesson ID:", lessonId); // Debug log
+// Example user and lesson IDs
+const userId = "wmn89rkE03Yh2sAdV2sS4W6UwY02";  // Replace with your actual user ID
+const lessonId = "lessonehc";  // Replace with your actual lesson ID
 
-        // Get the question number from the URL parameter `id`
-        const questionId = parseInt(urlParams.get("id")) || 1; // Defaults to 1 if `id` is not present
-        console.log("Question ID:", questionId); // Debug log
+// Get the question number from the URL parameter `id`
+const urlParams = new URLSearchParams(window.location.search);
+const questionId = parseInt(urlParams.get("id")) || 1;  // Defaults to 1 if `id` is not present
 
-        // Get the reference to the lesson document
-
-
-        // Initialize the current question
-        await initializeCurrentQuestion(questionId, userId);
-    } else {
-        console.error("User is not signed in.");
-    }
-});
-
+// Get the reference to the lesson document
+const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
 
 // Function to initialize the current question on page load
-async function initializeCurrentQuestion(questionId, userId) {
+async function initializeCurrentQuestion() {
     try {
-        const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
-        console.log("Lesson Reference:", lessonRef); // Debug log
         const docSnap = await getDoc(lessonRef);
 
         if (docSnap.exists()) {
@@ -558,7 +547,7 @@ async function initializeCurrentQuestion(questionId, userId) {
 
             // Check if the URL `id` matches the current question; if not, redirect to the current question
             if (questionId !== currentQuestion) {
-                window.location.href = `lessonehc.html?id=${currentQuestion}`;
+                window.location.href = `test2.html?id=${currentQuestion}`;
             }
         } else {
             console.error("No such document!");
@@ -567,6 +556,7 @@ async function initializeCurrentQuestion(questionId, userId) {
         console.error("Error initializing question:", error);
     }
 }
+
 // Function to go to the next question
 
 
@@ -576,7 +566,6 @@ async function markLessonCompleted() {
         await updateDoc(lessonRef, { completed: true });
         console.log("Lesson marked as completed.");
         checkLessonCompletion();
-        window.location.href = `library.html`;
     } catch (error) {
         console.error("Error marking lesson as completed:", error);
     }
@@ -618,9 +607,8 @@ function replaceButton() {
     const newButton = document.createElement('button');
 
     // Set the properties for the new button
-    newButton.style.visibility = "hidden"
     newButton.type = 'button';
-    newButton.id = "next"
+    newButton.id = "markCompletedButton"
     newButton.classList.add('btn', 'btn-success');
     newButton.innerText = 'Inleveren';
 
@@ -649,7 +637,7 @@ function updateButtons() {
             const questionId = getQuestionIdFromUrl();
             const nextQuestion = questionId - 1;
             await updateDoc(lessonRef, { current_question: nextQuestion });
-            window.location.href = `lessonehc.html?id=${id - 1}`;
+            window.location.href = `test2.html?id=${id - 1}`;
         };
     }
 
@@ -662,7 +650,7 @@ function updateButtons() {
             const questionId = getQuestionIdFromUrl();
             const nextQuestion = questionId + 1;
             await updateDoc(lessonRef, { current_question: nextQuestion });
-            window.location.href = `lessonehc.html?id=${id + 1}`;
+            window.location.href = `test2.html?id=${id + 1}`;
         };
     }
 }
@@ -674,54 +662,9 @@ function laadOpdracht() {
 
 
 
-
-async function checkNextButtonVisibility() {
-    // Fetch latestQuestion from Firestore
-    try {
-        const docSnaper = await getDoc(lessonRef);
-
-        if (docSnaper.exists()) {
-            const latestQuestion = docSnaper.data().latestQuestion;
-            const questionId = getQuestionIdFromUrl();
-            // Compare latestQuestion with the currentQuestionId
-            if (latestQuestion > questionId) {
-                // If latestQuestion is greater than or equal to the current question, show the "Next" button
-                document.getElementById("next").style.visibility = "visible";
-            } else {
-                // Otherwise, hide the "Next" button
-                document.getElementById("next").style.visibility = "hidden";
-            }
-        } else {
-            console.log("No such document!");
-        }
-    }
-    catch (error) {
-    }
-}
-
-
-async function correct() {
-    const questionId = getQuestionIdFromUrl();
-    const nextQuestion = questionId + 1;
-    await updateDoc(lessonRef, { latestQuestion: nextQuestion });
-    checkNextButtonVisibility();
-}
-
-const tester = document.getElementById("goed");
-tester.addEventListener("click", async () => {
-    correct();
-});
 // Call the function when the page loads
 
 
-
-
 window.onload = function () {
-    initializeCurrentQuestion();
-    checkLessonCompletion();
-    loadQuestionContent();
-    updateButtons();
-    laadOpdracht();
-    checkNextButtonVisibility();
 
 };

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lesson Completion</title>
+  <style>
+.container {
+    margin: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.scoreboard {
+    display: flex;
+    flex-direction: column;
+}
+
+.scoreboard-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 10px 0;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 5px;
+}
+
+.question-performance {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #e9ecef;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.question-item {
+    margin: 5px 0;
+}
+
+.question-item span {
+    font-weight: bold;
+}
+
+.btn {
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h2>Player Performance</h2>
+            <button class="btn btn-primary" id="downloadBtn">Download</button>
+        </div>
+        <div id="scoreboard" class="scoreboard">
+            <!-- Scores and question performance will be displayed here dynamically -->
+        </div>
+    </div>
+    
+  <script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC0lml6tn9XBBwMXv2ihniRR6G8w89eAp8",
+    authDomain: "pws-onderzoek-48e1c.firebaseapp.com",
+    projectId: "pws-onderzoek-48e1c",
+    storageBucket: "pws-onderzoek-48e1c.appspot.com",
+    messagingSenderId: "509841664982",
+    appId: "1:509841664982:web:b8e77c8fc701ab73895277"
+};
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    const auth = getAuth(app);
+
+    // Helper function to get URL parameters
+    // Initialize Firebase
+// Make sure you have initialized Firebase as shown in your existing code
+
+// Function to load scores from Firestore and display them
+function loadScores() {
+    const scoresRef = db.collection('scores'); // Your Firestore collection
+
+    // Clear previous scores
+    const scoreboard = document.getElementById('scoreboard');
+    scoreboard.innerHTML = '';
+
+    // Fetch the scores from Firestore
+    scoresRef.get().then(snapshot => {
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const playerName = data.name;
+            const playerScore = data.score;
+            const playerAccuracy = data.accuracy;
+            const questions = data.questions; // Subcollection of questions
+
+            let totalAttempts = 0;
+            let totalCorrect = 0;
+
+            // Create score item element
+            const scoreItem = document.createElement('div');
+            scoreItem.classList.add('scoreboard-item');
+            
+            // Loop through each question
+            let questionDetails = '';
+            for (let questionId in questions) {
+                const question = questions[questionId];
+                const attempts = question.attempts;
+                const correct = question.correct;
+                
+                // Update total attempts and correct answers
+                totalAttempts += attempts;
+                if (correct) totalCorrect++;
+
+                questionDetails += `
+                    <div class="question-item">
+                        <span>Question ${questionId}:</span> 
+                        Attempts: ${attempts} | 
+                        Correct: ${correct ? 'Yes' : 'No'}
+                    </div>
+                `;
+            }
+
+            // Calculate accuracy
+            const accuracy = (totalCorrect / Object.keys(questions).length) * 100;
+            const progressBarWidth = `${accuracy}%`;
+
+            scoreItem.innerHTML = `
+                <div class="player-info">
+                    <h5>${playerName}</h5>
+                    <div class="scorebar">
+                        <div class="progress" style="width: ${progressBarWidth}; background-color: ${accuracy > 80 ? 'green' : 'red'};"></div>
+                    </div>
+                    <div>Accuracy: ${accuracy}%</div>
+                    <div>Total Attempts: ${totalAttempts}</div>
+                    <div>Total Score: ${playerScore}</div>
+                </div>
+                <div class="question-performance">
+                    <h6>Question Performance</h6>
+                    ${questionDetails}
+                </div>
+            `;
+            
+            // Append to the scoreboard
+            scoreboard.appendChild(scoreItem);
+        });
+    }).catch(error => {
+        console.error("Error fetching scores: ", error);
+    });
+}
+
+// Load scores on page load
+document.addEventListener('DOMContentLoaded', loadScores);
+
+// Download button functionality
+document.getElementById('downloadBtn').addEventListener('click', () => {
+    const db = firebase.firestore();
+    const scoresRef = db.collection('scores'); // Your Firestore collection
+
+    scoresRef.get().then(snapshot => {
+        let result = 'Name, Accuracy, Total Attempts, Total Score\n';  // CSV header
+        snapshot.forEach(doc => {
+            const data = doc.data();
+            const totalAttempts = data.questions ? Object.values(data.questions).reduce((acc, q) => acc + q.attempts, 0) : 0;
+            result += `${data.name}, ${data.accuracy}%, ${totalAttempts}, ${data.score}\n`;
+        });
+
+        // Create a downloadable CSV file
+        const blob = new Blob([result], { type: 'text/csv' });
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'scores.csv';
+        link.click();
+    }).catch(error => {
+        console.error("Error downloading scores: ", error);
+    });
+});
+
+  </script>
+</body>
+</html>

@@ -2,3 +2,5 @@
 .card-deck{
     width: 75rem; min-height: 20rem; display: flex; justify-content: center;
 }
+
+.modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }
