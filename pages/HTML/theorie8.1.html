@@ -10,9 +10,8 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!--  -->
 
-    <link rel="stylesheet" href="../../styles/theorie.css">
-    <script src="../JS/functions.js"></script>
-    <title>Placeholder | Theorie</title>
+    <link rel="stylesheet" href="./pages/CSS/index.css">
+    <title>Placeholder | Theorie 8.1</title>
 </head>
 
 <body>
@@ -38,9 +37,17 @@
                             <a class="dropdown-item" href="./library.html">Alle opdrachten</a>
                         </div>
                     </li>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="./theorie.html">Theorie</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Theorie
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="./theorievwo4.html">Getal en Ruimte VWO 4</a>
+                            <a class="dropdown-item" href="./theorievwo5.html">Getal en Ruimte VWO 5</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="./theorie.html">Alle theorie</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./hoewerkthet.html">Hoe werkt het?</a>
@@ -71,53 +78,18 @@
         </nav>
     </header>
 
-    <br><br><br><br>
+    <br><br><br><br><br>
 
     <!-- Hier beginnen met typen -->
-    <div class="container-fluid">
-        <div class="vertical-nav">
-            <ul class="nav nav-pills flex-column">
-                <li class="nav-item">
-                    <a class="nav-link" href="theorie.html">Hoofdpagina Theorie</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="theorie-8.1.html">Eenheidscirkel</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Raaklijnen</a>
-                </li>
-            </ul>
-        </div>
-        <div class="content">
-            <h1>Welkom bij pagina 1 over de Eenheidscirkel.</h1>
-            <p>Zie de bijlage voor de bijbehorende Theorie. Op deze pagina wordt bijlage uitgelegd.</p>
-            <p>Heb je deze Theorie onder de knie? Klik op volgende om door te gaan met de eenheidscirkel.</p>
-            <div class="buttons">
-                <!-- Modal Bijlage -->
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
-                    bijlage</button>
-    
-                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                    aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <img src="../../assets/theorie-8.1-A.png">
-                        </div>
-                </div>
-            </div>
-            <p><br>Uitleg</p>
-            <p>Uitleg</p>
-            <p>Uitleg</p>
-            <div class="wrapper">
-                <div class="push"></div>
-            </div>
-            <footer class="footer">
-                <button type="button" class="btn btn-primary" id="startbutton">Vorige</button>
-                <p>Eenheidscirkel 1</p>
-                <button type="button" class="btn btn-primary" onclick="open_theorie(8.2)">Volgende</button>
-            </footer>
-        </div>
+        
+    <div>
+        <img src="../../assets/theorie-8.1-A.png" alt="Dit kon niet geladen worden :/">
     </div>
+
+    <div>
+        <img src="../../assets/theorie-8.1-A2.png" alt="Dit kon niet geladen worden :/">
+    </div>
+    
 
     <!--Script for Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

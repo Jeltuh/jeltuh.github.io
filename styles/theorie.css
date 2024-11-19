@@ -41,3 +41,76 @@
     border-color: black;
 }
 
+.container-fluid{
+    display: flex;
+}
+
+.vertical-nav{
+    width: 250px;  /* Breedte van de verticale navbar */
+    background-color: #f8f9fa;
+    padding-top: 20px;
+    position: fixed;  /* Maak de navbar vast aan de linkerzijde */
+    height: 100vh;  /* Zorg ervoor dat de navbar de volledige hoogte van het scherm heeft */
+    top: 7%;
+    left: 0;
+    border-right: 2px solid #ddd;  /* Grijze lijn rechts van de navbar */
+}
+
+.content{
+    margin-left: 250px;  /* Voeg een marge links toe gelijk aan de breedte van de navbar */
+    padding: 20px;
+    width: calc(100% - 250px);  /* De inhoud neemt de resterende breedte van het scherm in */
+}
+
+.vertical-nav .nav-pills .nav-link {
+    width: 100%;  /* Maak de pillen 100% breed */
+    text-align: center;  /* Centreer de tekst binnen de pill */
+    border-radius: 10px;  /* Maak de pillen afgerond */
+    margin-bottom: 10px;  /* Voeg ruimte tussen de pillen */
+}
+
+.vertical-nav .nav-pills .nav-link.active {
+    background-color: #087cfc;  /* Blauw voor actieve link */
+    color: white;
+}
+
+.vertical-nav .nav-pills .nav-link:hover {
+    background-color: #087cfc;  /* Donkerblauw bij hover */
+    color: white;
+}
+
+.theorie{
+    display: flex;
+    width: 500px;
+    height: 300px;
+}
+
+.wrapper {
+    min-height: 75%; 
+  }x
+
+.footer,
+.push {
+    height: 50px;
+}
+
+.footer button{
+    height: 50px;
+    right: 500px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 250px;
+    width: 100%;
+    background-color: #087cfc;
+    color: white;
+    justify-content: space-around;
+    display: flex;
+    line-height: 30px;
+}
+
+#startbutton{
+    visibility: hidden;
+}

@@ -38,17 +38,9 @@
                             <a class="dropdown-item" href="./library.html">Alle opdrachten</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Theorie
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="./theorievwo4.html">Getal en Ruimte VWO 4</a>
-                            <a class="dropdown-item" href="./theorievwo5.html">Getal en Ruimte VWO 5</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./theorie.html">Alle theorie</a>
-                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./theorie.html">Theorie</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./hoewerkthet.html">Hoe werkt het?</a>
@@ -82,27 +74,27 @@
     <br><br><br><br>
 
     <!-- Hier beginnen met typen -->
-    
-    <div class="container">
-    <ul class="list-group" style="position: relative;">
-        <li class="list-group-item">Hoofdstuk 8 Paragraaf 1<button type="button" class="btn btn-primary" onclick="open_theorie(8.1)">Ga naar</button></li>
-        <li class="list-group-item">Hoofdstuk 8 Paragraaf 2<button type="button" class="btn btn-primary">Ga naar</button></li>
-        <li class="list-group-item">Hoofdstuk 8 Paragraaf 3<button type="button" class="btn btn-primary">Ga naar</button></li>
-        <li class="list-group-item">Hoofdstuk 8 Paragraaf 4<button type="button" class="btn btn-primary">Ga naar</button></li>
-        <li class="list-group-item">Hoofdstuk 8 Paragraaf 5<button type="button" class="btn btn-primary">Ga naar</button></li>
-      </ul>
-    </div>
-
-    <div class="container">
-        <ul class="list-group" style="position: relative;">
-            <li class="list-group-item">Hoofdstuk 9 Paragraaf 1<button type="button" class="btn btn-primary">Ga naar</button></li>
-            <li class="list-group-item">Hoofdstuk 9 Paragraaf 2<button type="button" class="btn btn-primary">Ga naar</button></li>
-            <li class="list-group-item">Hoofdstuk 9 Paragraaf 3<button type="button" class="btn btn-primary">Ga naar</button></li>
-            <li class="list-group-item">Hoofdstuk 9 Paragraaf 4<button type="button" class="btn btn-primary">Ga naar</button></li>
-            <li class="list-group-item">Hoofdstuk 9 Paragraaf 5<button type="button" class="btn btn-primary">Ga naar</button></li>
-          </ul>
+    <div class="container-fluid">
+        <div class="vertical-nav">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="theorie.html">Hoofdpagina Theorie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="theorie-8.1.html">Eenheidscirkel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Raaklijnen</a>
+                </li>
+            </ul>
         </div>
-
+        <div class="content">
+            <h1>Welkom op de Theorie Pagina</h1>
+            <p>Hier kunnen we de Theorie die is aangeklikt laten zien met het menu voor alle theorie op dezelfde pagina.</p>
+            <p>We hebben hier dan gewoon een algemene theorie pagina en als je categorie aanklikt blijft het menu wel nog.</p>
+            <p>Ook hebben de pills een hover dat je kan zien waar je je muis hebt. Is dit een beetje wat je bedoelde?</p>
+        </div>
+    </div>
 
     <!--Script for Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
