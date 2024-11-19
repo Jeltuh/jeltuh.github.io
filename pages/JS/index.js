@@ -109,7 +109,6 @@ const accountDropdown = document.getElementById("accountDropdown");
 const accountPoints = document.getElementById("accountPoints");
 const logoutButton = document.getElementById("logoutButton");
 const logoutButton2 = document.getElementById("logoutButton2");
-const protectedContent = document.getElementById("protected-content");
 
 
 // Display the correct button based on auth state
@@ -165,7 +164,7 @@ onAuthStateChanged(auth, async (user) => {
         // User is logged in
         dynamicButton.textContent = "Ga naar";
         dynamicButton.onclick = () => {
-            window.location.href = "Pages/HTML/library.html";
+            window.location.href = "pages/HTML/library.html";
         };
     } else {
         // User is not logged in
