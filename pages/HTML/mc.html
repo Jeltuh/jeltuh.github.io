@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Question</title>
+    <link rel="stylesheet" href="../../styles/mc.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>What is the capital of Uruguay?</h1>
+        <form id="quiz-form">
+            <label class="option">
+                <input type="radio" name="answer" value="Monterey">
+                <div class="box">Monterey</div>
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="New Uruguay">
+                <div class="box">New Uruguay</div>
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="Montevideo">
+                <div class="box">Montevideo</div>
+            </label>
+            <label class="option">
+                <input type="radio" name="answer" value="Panama City">
+                <div class="box">Panama City</div>
+            </label>
+            <button type="button" id="submit-btn">Submit</button>
+        </form>
+        <p id="feedback" class="hidden"></p>
+    </div>
+    <script type="module">
+        document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("quiz-form");
+    const feedback = document.getElementById("feedback");
+    const submitBtn = document.getElementById("submit-btn");
+
+    // Correct answer
+    const correctAnswer = "Montevideo";
+
+    submitBtn.addEventListener("click", () => {
+        // Get the selected answer
+        const selectedOption = form.querySelector('input[name="answer"]:checked');
+
+        // If no option is selected, show a warning
+        if (!selectedOption) {
+            feedback.textContent = "Please select an answer.";
+            feedback.style.color = "red";
+            feedback.classList.remove("hidden");
+            return;
+        }
+
+        // Check if the selected answer is correct
+        if (selectedOption.value === correctAnswer) {
+            feedback.textContent = "Correct!";
+            feedback.style.color = "green";
+        } else {
+            feedback.textContent = "Incorrect. Try again!";
+            feedback.style.color = "red";
+        }
+
+        feedback.classList.remove("hidden");
+    });
+});
+
+    </script>
+</body>
+</html>

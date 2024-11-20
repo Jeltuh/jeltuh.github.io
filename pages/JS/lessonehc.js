@@ -401,8 +401,20 @@ function checkAnswer() {
     }
 }
 
+const questionId = getQuestionIdFromUrl();
+var Answer = 0;
 
-
+function correctAnswer(){
+    if (questionId === 3){
+        Answer = "montevideo";}
+    else if (questionId === 2){
+        Answer = "hoppa";
+    }
+    else{
+    }
+    console.log(questionId)
+    return Answer;
+}
 
 
 
@@ -493,7 +505,7 @@ function loadQuestionContent() {
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
             width="80%" height="50%" style="position: absolute; right: -36%; top:20%"> </iframe>
 
         <div class="wrapper">
@@ -508,11 +520,70 @@ function loadQuestionContent() {
                 <input type="text" id="answer">
                 <button onclick="checkAnswer(2)">Controleer antwoord</button>
               `;
+    } 
+    else if (questionId === 3) {
+        questionContainer.innerHTML = `
+            <div class="multiple-choice-container">
+                <h2>What is the capital of Uruguay?</h2>
+                <form id="quiz-form">
+                    <div class="answer">
+                        <label for="monterey">Monterey</label>
+                        <input type="radio" id="monterey" name="answer" value="monterey">
+                    </div>
+                    <div class="answer">
+                        <label for="new-uruguay">New Uruguay</label>
+                        <input type="radio" id="new-uruguay" name="answer" value="new-uruguay">
+                    </div>
+                    <div class="answer">
+                        <label for="montevideo">Montevideo</label>
+                        <input type="radio" id="montevideo" name="answer" value="montevideo">
+                    </div>
+                    <div class="answer">
+                        <label for="panama-city">Panama City</label>
+                        <input type="radio" id="panama-city" name="answer" value="panama-city">
+                    </div>
+                    <button type="button" id="submit-btn">Submit</button>
+                </form>
+                <p id="feedback" class="hidden"></p>
+            </div>
+        `;
+
+        // Now query the form and other elements after content is loaded
+        const form = document.getElementById("quiz-form");
+        const feedback = document.getElementById("feedback");
+        const submitBtn = document.getElementById("submit-btn");
+
+        // Correct answer
+
+        submitBtn.addEventListener("click", () => {
+            // Get the selected answer
+            const selectedOption = form.querySelector('input[name="answer"]:checked');
+
+            // If no option is selected, show a warning
+            if (!selectedOption) {
+                feedback.textContent = "Please select an answer.";
+                feedback.style.color = "red";
+                feedback.classList.remove("hidden");
+                return;
+            }
+
+            // Check if the selected answer is correct
+            if (selectedOption.value === correctAnswer) {
+                feedback.textContent = "Correct!";
+                feedback.style.color = "green";
+            } else {
+                console.log(selectedOption.value + correctAnswer());
+                feedback.textContent = "Incorrect. Try again!";
+                feedback.style.color = "red";
+            }
+
+            feedback.classList.remove("hidden");
+        });
     } else {
         questionContainer.innerHTML = `
-                <h2>Vraag ${questionId}</h2>
-                <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
-              `;
+            <h2>Vraag ${questionId}</h2>
+            <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
+        `;
     }
 }
 
@@ -685,6 +756,8 @@ tester.addEventListener("click", async () => {
     correct();
 });
 // Call the function when the page loads
+
+
 
 
 

@@ -50,3 +50,74 @@ body.modal-open div.modal-backdrop {
 }
 
 .modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }
+
+/* Styles scoped to the multiple-choice answers */
+.multiple-choice-container {
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
+    width: 50%;
+}
+
+.multiple-choice-container h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+.multiple-choice-container .answer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px 20px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+.multiple-choice-container .answer:hover {
+    border-color: #007bff;
+    background-color: #e6f4ff;
+}
+
+.multiple-choice-container .answer input {
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.multiple-choice-container .answer label {
+    flex-grow: 1;
+    font-size: 1em;
+    color: #444;
+}
+
+.multiple-choice-container button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.multiple-choice-container button:hover {
+    background-color: #0056b3;
+}
+
+.hidden {
+    display: none;
+}
+
+#feedback {
+    margin-top: 20px;
+    font-size: 1.2em;
+    font-weight: bold;
+    text-align: center;
+}
