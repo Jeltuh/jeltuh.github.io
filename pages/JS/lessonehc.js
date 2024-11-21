@@ -222,20 +222,20 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
             points: 0 // Initialize points to 0
         });
 
-         // Initialize the lessons collection for the user with 'lessonehc' and 'raaklijn'
-         const lessonsRef = doc(db, "users", user.uid, "lessons", "lessonehc");
-         await setDoc(lessonsRef, {
-             completed: false,
-             current_question: 1, // Starting with the first question
-             latestQuestion: 1 // Set to the first question as well
-         });
- 
-         const lessonsRef2 = doc(db, "users", user.uid, "lessons", "raaklijn");
-         await setDoc(lessonsRef2, {
-             completed: false,
-             current_question: 1, // Starting with the first question
-             latestQuestion: 1 // Set to the first question as well
-         });
+        // Initialize the lessons collection for the user with 'lessonehc' and 'raaklijn'
+        const lessonsRef = doc(db, "users", user.uid, "lessons", "lessonehc");
+        await setDoc(lessonsRef, {
+            completed: false,
+            current_question: 1, // Starting with the first question
+            latestQuestion: 1 // Set to the first question as well
+        });
+
+        const lessonsRef2 = doc(db, "users", user.uid, "lessons", "raaklijn");
+        await setDoc(lessonsRef2, {
+            completed: false,
+            current_question: 1, // Starting with the first question
+            latestQuestion: 1 // Set to the first question as well
+        });
 
         // Automatically log the user in after registration
         registerModal.hide(); // Close the register modal
@@ -404,24 +404,75 @@ function checkAnswer() {
 const questionId = getQuestionIdFromUrl();
 var Answer = 0;
 
-function correctAnswer(){
-    if (questionId === 3){
-        Answer = "montevideo";}
-    else if (questionId === 2){
+function correctAnswer() {
+    if (questionId === 3) {
+        Answer = "1";
+    }
+    else if (questionId === 2) {
         Answer = "hoppa";
     }
-    else{
+    else if (questionId === 4) {
+        Answer = "jelte";
+    }
+    else {
     }
     console.log(questionId)
     return Answer;
 }
 
+    // Get the full path of the current URL
+    const fullPath = window.location.pathname; // e.g., "/folder/page.html"
+
+    // Extract the filename without the extension
+    const lessonId = fullPath.substring(fullPath.lastIndexOf("/") + 1, fullPath.lastIndexOf("."));
 
 
 function getQuestionIdFromUrl() {
     const params = new URLSearchParams(window.location.search);
     return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
 }
+
+async function getQuestionRef() {
+    return new Promise((resolve, reject) => {
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const userId = user.uid;
+                const questionId = String(getQuestionIdFromUrl());
+                const fullPath = window.location.pathname; // e.g., "/folder/page.html"
+                const lessonId = fullPath.substring(fullPath.lastIndexOf("/") + 1, fullPath.lastIndexOf("."));
+                const questionRef = doc(getFirestore(), 'users', userId, 'lessons', lessonId, 'questions', questionId);
+                resolve(questionRef);
+            } else {
+                console.error("User is not signed in.");
+                reject(new Error("User not signed in"));
+            }
+        });
+    });
+}
+
+
+
+async function incrementAttempts() {
+    try {
+        // Reference to the specific question
+        const questionRef = await getQuestionRef();
+
+        // Get the current question data
+        const questionSnap = await getDoc(questionRef);
+
+        // If the question exists, increment the attempts
+        const currentAttempts = questionSnap.data().attempts || 0;
+        await updateDoc(questionRef, {
+            attempts: currentAttempts + 1
+        });
+        console.log(`Attempts updated to: ${currentAttempts + 1}`);
+
+    } catch (error) {
+        console.error("Error updating attempts:", error);
+    }
+}
+
+
 
 function loadQuestionContent() {
     const questionId = getQuestionIdFromUrl();
@@ -519,11 +570,17 @@ function loadQuestionContent() {
                 <p>Wat is de afgeleide van x^2?</p>
                 <input type="text" id="answer">
                 <button onclick="checkAnswer(2)">Controleer antwoord</button>
+                <div class="question">
+                <button type="button" id="submit-btn">Submit</button>
+                <p id="feedback" class="hidden"></p>
+                </div>
+
+                
               `;
-    } 
+    }
     else if (questionId === 3) {
         questionContainer.innerHTML = `
-            <div class="multiple-choice-container">
+            <div class="question">
                 <h2>What is the capital of Uruguay?</h2>
                 <form id="quiz-form">
                     <div class="answer">
@@ -536,7 +593,7 @@ function loadQuestionContent() {
                     </div>
                     <div class="answer">
                         <label for="montevideo">Montevideo</label>
-                        <input type="radio" id="montevideo" name="answer" value="montevideo">
+                        <input type="radio" id="montevideo" name="answer" value="1">
                     </div>
                     <div class="answer">
                         <label for="panama-city">Panama City</label>
@@ -546,176 +603,233 @@ function loadQuestionContent() {
                 </form>
                 <p id="feedback" class="hidden"></p>
             </div>
-        `;
+        `;}
+    else if (questionId === 4) {
+            questionContainer.innerHTML = `
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google-like Search Bar</title>
+    <style>
 
-        // Now query the form and other elements after content is loaded
-        const form = document.getElementById("quiz-form");
-        const feedback = document.getElementById("feedback");
-        const submitBtn = document.getElementById("submit-btn");
 
-        // Correct answer
+        .quiz-form {
+            position: relative;
+            width: 600px;
+        }
 
-        submitBtn.addEventListener("click", () => {
-            // Get the selected answer
-            const selectedOption = form.querySelector('input[name="answer"]:checked');
+        .search-input {
+            width: 100%;
+            height: 50px;
+            border: none;
+            padding: 0 60px 0 20px;
+            border-radius: 25px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            outline: none;
+        }
 
-            // If no option is selected, show a warning
-            if (!selectedOption) {
-                feedback.textContent = "Please select an answer.";
-                feedback.style.color = "red";
-                feedback.classList.remove("hidden");
-                return;
-            }
+        .search-input::placeholder {
+            color: #9aa0a6;
+        }
+    </style>
+</head>
+<body>
+    <div class="question">
+        <input id="antwoord"
+            type="text" 
+            class="search-input" 
+            placeholder="Type hier je antwoord...">
+            <button type="button" id="submit-btn">Submit</button>
+    </div>
+    <p id="feedback" class="hidden"></p>
+</body>
+</html>`;}
 
-            // Check if the selected answer is correct
-            if (selectedOption.value === correctAnswer) {
-                feedback.textContent = "Correct!";
-                feedback.style.color = "green";
-            } else {
-                console.log(selectedOption.value + correctAnswer());
-                feedback.textContent = "Incorrect. Try again!";
-                feedback.style.color = "red";
-            }
 
-            feedback.classList.remove("hidden");
-        });
-    } else {
-        questionContainer.innerHTML = `
+         else {
+            questionContainer.innerHTML = `
             <h2>Vraag ${questionId}</h2>
             <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
         `;
-    }
-}
-
-// Call the function when the page loads
-
-
-
-
-// Get the full path of the current URL
-const fullPath = window.location.pathname; // e.g., "/folder/page.html"
-
-// Extract the filename without the extension
-const lessonId = fullPath.substring(fullPath.lastIndexOf("/") + 1, fullPath.lastIndexOf("."));
-
-
-// Function to get the lesson reference
-async function getLessonRef() {
-    return new Promise((resolve, reject) => {
-        onAuthStateChanged(auth, (user) => {
-            if (user) {
-                const userId = user.uid;
-                const lessonRef = doc(getFirestore(), 'users', userId, 'lessons', lessonId);
-                resolve(lessonRef);
-            } else {
-                console.error("User is not signed in.");
-                reject(new Error("User not signed in"));
-            }
-        });
-    });
-}
-
-
-
-
-// Function to mark the lesson as completed
-async function markLessonCompleted() {
-    const lessonRef = await getLessonRef();
-    try {
-        await updateDoc(lessonRef, { completed: true });
-        console.log("Lesson marked as completed.");
-        window.location.href = `library.html`;
-    } catch (error) {
-        console.error("Error marking lesson as completed:", error);
-    }
-}
-
-
-// Initialize the question display and check completion status on page load
-
-function replaceButton() {
-    // Get the original button by its id
-    const oldButton = document.getElementById('next');
-
-    // Create the new button element
-    const newButton = document.createElement('button');
-
-    // Set the properties for the new button
-    newButton.style.visibility = "visible"
-    newButton.type = 'button';
-    newButton.id = "next"
-    newButton.classList.add('btn', 'btn-success');
-    newButton.innerText = 'Inleveren';
-
-
-
-    // Replace the old button with the new one
-    oldButton.parentNode.replaceChild(newButton, oldButton);
-
-    newButton.addEventListener('click', markLessonCompleted);
-}
-
-function checkQuestionAccess(latestQuestion) {
-    // Get the current question ID from the URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentQuestion = parseInt(urlParams.get("id"));
-
-    // If the current question is higher than the latestQuestion
-    if (currentQuestion > latestQuestion) {
-
-        // Redirect the user back to their latestQuestion
-        window.location.href = `${lessonId}.html?id=${latestQuestion}`;
-    }
-}
-
-// Example usage with a fetched latestQuestion value
-async function fetchAndCheckQuestionAccess() {
-    const userDocRef = await getLessonRef();
-    const userDocSnap = await getDoc(userDocRef);
-
-    if (userDocSnap.exists()) {
-        const latestQuestion = userDocSnap.data().latestQuestion;
-
-        // Check the user's access to the current question
-        checkQuestionAccess(latestQuestion);
-    } else {
-        console.error("User lesson data not found.");
-    }
-}
-
-fetchAndCheckQuestionAccess();
-
-
-async function updateButtons() {
-    try {
-        // Get the current question ID
-        const questionId = getQuestionIdFromUrl();
-
-        // Get the lesson reference for updating progress
-        const lessonRef = await getLessonRef();
-        const docSnap = await getDoc(lessonRef);
-        const latestQuestion = docSnap.exists() ? docSnap.data().latestQuestion : 0;
-
-        // Reference navigation buttons
-        const prevButton = document.getElementById("previous");
-        const nextButton = document.getElementById("next");
-
-        // Handle the previous button
-        if (questionId === 1) {
-            prevButton.style.visibility = "hidden"; // Hide previous button
-        } else {
-            prevButton.style.visibility = "visible"; // Show previous button
-            prevButton.onclick = async function () {
-                const previousQuestion = questionId - 1;
-                await updateDoc(lessonRef, { current_question: previousQuestion });
-                window.location.href = `lessonehc.html?id=${previousQuestion}`;
-            };
         }
+                function getAnswer(){
+                    const form = document.getElementById("quiz-form");
+                    if (questionId == 4||questionId == 5){
+                        const selectedOption2 = document.getElementById("antwoord");
+                        var chosenAnswer = selectedOption2.value;
+                        console.log(chosenAnswer);
+                    }
+                    else {
+                        const selectedOption = form.querySelector('input[name="answer"]:checked');
+                        var chosenAnswer = selectedOption.value;
+                        console.log(chosenAnswer);
+                    }
+                    return chosenAnswer;
+                }
+                // Now query the form and other elements after content is loaded
+                
+    
+                // Correct answer
+    
+                const form = document.getElementById("quiz-form");
+                const feedback = document.getElementById("feedback");
+                const submitBtn = document.getElementById("submit-btn");
 
-        // Handle the next button
-        if (nextButton) {
-            if (latestQuestion === 6) {
-                replaceButton();}
+                submitBtn.addEventListener("click", () => {
+                    incrementAttempts();
+                    var answer = correctAnswer();
+                    var chosenAnswer = getAnswer();
+    
+                    // If no option is selected, show a warning
+                    if (!chosenAnswer) {
+                        feedback.textContent = "Please select an answer.";
+                        feedback.style.color = "red";
+                        feedback.classList.remove("hidden");
+                        return;
+                    }
+    
+    
+    
+                    // Check if the selected answer is correct
+                    if (chosenAnswer == answer) {
+                        feedback.textContent = "Correct!";
+                        feedback.style.color = "green";
+                    } else {
+                        feedback.textContent = "Helaas, probeer het opnieuw.";
+                        feedback.style.color = "red";
+                    }
+    
+                    feedback.classList.remove("hidden");
+                });
+    }
+
+    // Call the function when the page loads
+
+
+
+
+
+    // Function to get the lesson reference
+    async function getLessonRef() {
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const userId = user.uid;
+                    const lessonRef = doc(getFirestore(), 'users', userId, 'lessons', lessonId);
+                    resolve(lessonRef);
+                } else {
+                    console.error("User is not signed in.");
+                    reject(new Error("User not signed in"));
+                }
+            });
+        });
+    }
+
+
+
+
+    // Function to mark the lesson as completed
+    async function markLessonCompleted() {
+        const lessonRef = await getLessonRef();
+        try {
+            await updateDoc(lessonRef, { completed: true });
+            console.log("Lesson marked as completed.");
+            window.location.href = `library.html`;
+        } catch (error) {
+            console.error("Error marking lesson as completed:", error);
+        }
+    }
+
+
+    // Initialize the question display and check completion status on page load
+
+    function replaceButton() {
+        // Get the original button by its id
+        const oldButton = document.getElementById('next');
+
+        // Create the new button element
+        const newButton = document.createElement('button');
+
+        // Set the properties for the new button
+        newButton.style.visibility = "visible"
+        newButton.type = 'button';
+        newButton.id = "next"
+        newButton.classList.add('btn', 'btn-success');
+        newButton.innerText = 'Inleveren';
+
+
+
+        // Replace the old button with the new one
+        oldButton.parentNode.replaceChild(newButton, oldButton);
+
+        newButton.addEventListener('click', markLessonCompleted);
+    }
+
+    function checkQuestionAccess(latestQuestion) {
+        // Get the current question ID from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const currentQuestion = parseInt(urlParams.get("id"));
+
+        // If the current question is higher than the latestQuestion
+        if (currentQuestion > latestQuestion) {
+
+            // Redirect the user back to their latestQuestion
+            window.location.href = `${lessonId}.html?id=${latestQuestion}`;
+        }
+    }
+
+    // Example usage with a fetched latestQuestion value
+    async function fetchAndCheckQuestionAccess() {
+        const userDocRef = await getLessonRef();
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+            const latestQuestion = userDocSnap.data().latestQuestion;
+
+            // Check the user's access to the current question
+            checkQuestionAccess(latestQuestion);
+        } else {
+            console.error("User lesson data not found.");
+        }
+    }
+
+    fetchAndCheckQuestionAccess();
+
+
+    async function updateButtons() {
+        try {
+            // Get the current question ID
+            const questionId = getQuestionIdFromUrl();
+
+            // Get the lesson reference for updating progress
+            const lessonRef = await getLessonRef();
+            const docSnap = await getDoc(lessonRef);
+            const latestQuestion = docSnap.exists() ? docSnap.data().latestQuestion : 0;
+
+            // Reference navigation buttons
+            const prevButton = document.getElementById("previous");
+            const nextButton = document.getElementById("next");
+
+            // Handle the previous button
+            if (questionId === 1) {
+                prevButton.style.visibility = "hidden"; // Hide previous button
+            } else {
+                prevButton.style.visibility = "visible"; // Show previous button
+                prevButton.onclick = async function () {
+                    const previousQuestion = questionId - 1;
+                    await updateDoc(lessonRef, { current_question: previousQuestion });
+                    window.location.href = `lessonehc.html?id=${previousQuestion}`;
+                };
+            }
+
+            // Handle the next button
+            if (nextButton) {
+                if (latestQuestion === 6) {
+                    replaceButton();
+                }
                 else if (latestQuestion > questionId) {
                     nextButton.style.visibility = "visible"; // Show next button
                     nextButton.onclick = async function () {
@@ -725,46 +839,48 @@ async function updateButtons() {
                     };
                 } else {
                     nextButton.style.visibility = "hidden"; // Hide next button if no more questions
-                    
+
                 }
+            }
+        } catch (error) {
+            console.error("Error initializing navigation buttons:", error);
         }
-    } catch (error) {
-        console.error("Error initializing navigation buttons:", error);
     }
-}
-
-function laadOpdracht() {
-    const questionId = getQuestionIdFromUrl();
-    document.getElementById("question").innerText = "Opdracht " + questionId;
-}
 
 
 
-
-
-
-async function correct() {
-    const lessonRef = await getLessonRef();
-    const questionId = getQuestionIdFromUrl();
-    const nextQuestion = questionId + 1;
-    await updateDoc(lessonRef, { latestQuestion: nextQuestion });
-    updateButtons();
-}
-
-const tester = document.getElementById("goed");
-tester.addEventListener("click", async () => {
-    correct();
-});
-// Call the function when the page loads
+    function laadOpdracht() {
+        const questionId = getQuestionIdFromUrl();
+        document.getElementById("question").innerText = "Opdracht " + questionId;
+    }
 
 
 
 
 
 
-window.onload = function () {
-    loadQuestionContent();
-    updateButtons();
-    laadOpdracht();;
+    async function correct() {
+        const lessonRef = await getLessonRef();
+        const questionId = getQuestionIdFromUrl();
+        const nextQuestion = questionId + 1;
+        await updateDoc(lessonRef, { latestQuestion: nextQuestion });
+        updateButtons();
+    }
 
-};
+    const tester = document.getElementById("goed");
+    tester.addEventListener("click", async () => {
+        correct();
+    });
+    // Call the function when the page loads
+
+
+
+
+
+
+    window.onload = function () {
+        loadQuestionContent();
+        updateButtons();
+        laadOpdracht();;
+
+    };
