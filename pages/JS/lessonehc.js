@@ -432,7 +432,7 @@ function getQuestionIdFromUrl() {
     return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
 }
 
-async function getQuestionRef() {
+export async function getQuestionRef() {
     return new Promise((resolve, reject) => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
@@ -713,7 +713,7 @@ function loadQuestionContent() {
 
 
     // Function to get the lesson reference
-    async function getLessonRef() {
+    export async function getLessonRef() {
         return new Promise((resolve, reject) => {
             onAuthStateChanged(auth, (user) => {
                 if (user) {
