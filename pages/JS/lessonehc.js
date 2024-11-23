@@ -527,7 +527,7 @@ function loadQuestionContent() {
             <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
                 Uitwerkingen
             </button>
-
+            <button type="button" id="submit-btn">Submit</button>
             <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
                 aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered" role="document">
@@ -643,8 +643,8 @@ function loadQuestionContent() {
             class="search-input" 
             placeholder="Type hier je antwoord...">
             <button type="button" id="submit-btn">Submit</button>
+            <p id="feedback" class="hidden"></p>
     </div>
-    <p id="feedback" class="hidden"></p>
 </body>
 </html>`;}
 
@@ -697,6 +697,7 @@ function loadQuestionContent() {
                     if (chosenAnswer == answer) {
                         feedback.textContent = "Correct!";
                         feedback.style.color = "green";
+                        correct();
                     } else {
                         feedback.textContent = "Helaas, probeer het opnieuw.";
                         feedback.style.color = "red";
@@ -737,7 +738,7 @@ function loadQuestionContent() {
         try {
             await updateDoc(lessonRef, { completed: true });
             console.log("Lesson marked as completed.");
-            window.location.href = `library.html`;
+            window.location.href = `resultaten.html?id=${lessonId}`;
         } catch (error) {
             console.error("Error marking lesson as completed:", error);
         }
@@ -881,6 +882,6 @@ function loadQuestionContent() {
     window.onload = function () {
         loadQuestionContent();
         updateButtons();
-        laadOpdracht();;
-
+        laadOpdracht();
+        console.log("wtf");
     };
