@@ -4,3 +4,19 @@
 }
 
 .modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }
+
+body{
+    background-color: #f8f9fa;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch; /* Zorgt ervoor dat alle kaarten dezelfde hoogte hebben */
+    flex-wrap: wrap;
+    gap: 200px;
+    margin-top: 50px;
+  }
+  .card {
+    max-width: 400px;
+    border-radius: 8px;}

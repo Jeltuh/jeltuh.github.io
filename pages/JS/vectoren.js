@@ -405,14 +405,17 @@ const questionId = getQuestionIdFromUrl();
 var Answer = 0;
 
 function correctAnswer() {
+    if (questionId === 1) {
+        Answer = "Q(7(1)/(3),5(1)/(3)) en R(6(1)/(3),6(2)/(3))";
+    }
     if (questionId === 3) {
-        Answer = "1";
+        Answer = "N(9(1)/(2),8(1)/(2))";
     }
     else if (questionId === 2) {
-        Answer = "hoppa";
+        Answer = "1";
     }
     else if (questionId === 4) {
-        Answer = "jelte";
+        Answer = "N(5(1)/(2),5(1)/(2))";
     }
     else {
     }
@@ -483,171 +486,158 @@ function loadQuestionContent() {
 
     if (questionId === 1) {
         questionContainer.innerHTML = `
-                        <h3>Opdracht 1</h3>
-
-        <p><i>Deze opdracht komt overeen met vraag 7 in je werkboek.</i></p>
-        <p>Bij deze opdracht is te zien dat het verplaatsen van punt B op de eenheidscirkel
-            er voor zorgt dat de hoek tot punt B ook veranderd.</p>
-        <p>Kijk door het verschuiven van
-            punt B op de eenheidscirkel wat dit betekent voor de hoek a.</p>
-        <p>Tip: De cos(a) veranderd met de x-waarde van B, en de sin(a) veranderd met de y-waarde van B</p>
-
-
-        <p><b> 7A.</b> Xb = 0,81</p>
-        <p><b> 7B.</b> Yb = 0,94</p>
-        <p><b> 7C.</b> Xb = 0,26</p>
-        <p><b> 7D.</b> Yb = -0,22</p>
-
-        <br>
-        <p>Zie de bijlage voor de figuur.</p>
-
         <div class="question">
-        <div class="buttons">
-            <!-- Modal Bijlage -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
-                bijlage</button>
+            <h3>Opdracht 1</h3>
+            <br>
+            <p><i>Deze opdracht komt overeen met vraag 10.17 in je werkboek.</i></p>
+            <br>
+            <p>Gegeven is het vierkant ABCD met A(3, 0) en D(0, 4). Op zijde BC liggen de punten P en S waarbij BP = PS = SC.</p>
+            <p>PS is een zijde van het vierkant PQRS.<p/>
+            <p>Zie de figuur.</p>
+            <p>Bereken de coördinaten van de punten Q en R.</p>
+            <br>
 
-            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <img src="../../assets/hf8-vraag7.png">
-                    </div>
+            <div class="buttons">
+                <p>Open hier de bijbehorende theorie.</p>
+                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+                <br><br>
+
+                <div class="question">
+                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
+                    <button type="button" id="submit-btn">Submit</button>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p id="feedback" class="hidden"></p>
                 </div>
-            </div>
-
-            
-            <p>Controleer hier je antwoorden en bekijk de bijbehorende theorie.</p>
-
-
-            <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
-
-
-            <!-- Modal Uitwerkingen -->
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
-                Uitwerkingen
-            </button>
-            <button type="button" id="submit-btn">Submit</button>
-            </div>
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Uitwerkingen</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <b>A:</b> <i>De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft
-                                35,90...°. Afgerond is de hoek a dus ≈ <b>35,9°</b>.</i><br><br>
-                            <b>B:</b> <i>De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft
-                                70,05...°.
-                                In het plaatje is te zien dat punt B voorbij de 90° komt.</i><br>
-                            Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit
-                            op a
-                            ≈ 180° - 70,1° ≈ <b>109,9°</b>.
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
+                
             </div>
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
-            width="80%" height="50%" style="position: absolute; right: -36%; top:20%"> </iframe>
+            src="https://www.geogebra.org/material/iframe/id/rsrrhnde/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
         <div class="push"></div>
-    </div>
+        </div>
 
               `;
     } else if (questionId === 2) {
         questionContainer.innerHTML = `
-                <h2>Vraag 2</h2>
-                <p>Wat is de afgeleide van x^2?</p>
-                <input type="text" id="answer">
-                <button onclick="checkAnswer(2)">Controleer antwoord</button>
-                <div class="question">
-                <button type="button" id="submit-btn">Submit</button>
-                <p id="feedback" class="hidden"></p>
-                </div>
+         <div class="question">
+            <h3>Opdracht 2</h3>
+            <br>
+            <h2>Hoe ziet deze vector eruit als je hem rechtsom draait?</h2>
+            <img src="../../assets/vector1.png" width="100" height="50">
 
+
+            <div class="buttons">
+
+                <div class="question">
+                    <form id="quiz-form">
+                    <div class="answer">
+                        <label for="1"><img src="../../assets/vectoren/vector-2-1.png" width="90" height="35"></label>
+                        <input type="radio" id="1" name="answer" value="1">
+                    </div>
+                    <div class="answer">
+                        <label for="2"><img src="../../assets/vectoren/vector-2-2.png" width="90" height="35"></label>
+                        <input type="radio" id="2" name="answer" value="2">
+                    </div>
+                    <div class="answer">
+                        <label for="3"><img src="../../assets/vectoren/vector-2-3.png" width="90" height="35"></label>
+                        <input type="radio" id="3" name="answer" value="3">
+                    </div>
+                    <div class="answer">
+                        <label for="4"><img src="../../assets/vectoren/vector-2-4.png" width="90" height="35"></label>
+                        <input type="radio" id="4" name="answer" value="4">
+                    </div>
+                    <button type="button" id="submit-btn">Submit</button>
+                </form>
+                    <p id="feedback" class="hidden"></p>
+                </div>
+                                <p>Open hier de bijbehorende theorie.</p>
+                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
                 
+            </div>
+        </div>
+
+        <div class="wrapper">
+        <div class="push"></div>
+        </div> 
               `;
     }
     else if (questionId === 3) {
         questionContainer.innerHTML = `
-            <div class="question">
-                <h2>What is the capital of Uruguay?</h2>
-                <form id="quiz-form">
-                    <div class="answer">
-                        <label for="monterey">Monterey</label>
-                        <input type="radio" id="monterey" name="answer" value="monterey">
-                    </div>
-                    <div class="answer">
-                        <label for="new-uruguay">New Uruguay</label>
-                        <input type="radio" id="new-uruguay" name="answer" value="new-uruguay">
-                    </div>
-                    <div class="answer">
-                        <label for="montevideo">Montevideo</label>
-                        <input type="radio" id="montevideo" name="answer" value="1">
-                    </div>
-                    <div class="answer">
-                        <label for="panama-city">Panama City</label>
-                        <input type="radio" id="panama-city" name="answer" value="panama-city">
-                    </div>
+        <div class="question">
+            <h3>Opdracht 3</h3>
+            <br>
+            <p><i>Deze opdracht komt overeen met vraag 10.15 in je werkboek.</i></p>
+            <br>
+            <p>Gegeven is het vierkant ABCD met A(5, 2) en D(2, 6).</p>
+            <p>Verder is het punt M het midden van diagonaal AC. Ook is het vierkant MBNC getekend.<p/>
+            <p><b>Bereken de coördinaten van punt N.</b></p>
+            <br>
+
+            <div class="buttons">
+                <p>Open hier de bijbehorende theorie.</p>
+                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+                <br><br>
+
+                <div class="question">
+                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                </form>
-                <p id="feedback" class="hidden"></p>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p id="feedback" class="hidden"></p>
+                </div>
+                
             </div>
+        </div>
+
+        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+            src="https://www.geogebra.org/material/iframe/id/hrgbuyzm/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
+
+        <div class="wrapper">
+        <div class="push"></div>
+        </div>
         `;}
     else if (questionId === 4) {
             questionContainer.innerHTML = `
-        <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google-like Search Bar</title>
-    <style>
+            <div class="question">
+            <h3>Opdracht 4</h3>
+            <br>
+            <p><i>Deze opdracht komt overeen met vraag 10.16 in je werkboek.</i></p>
+            <br>
+            <p>Gegeven zijn de punten A(0, 2) en B(8, 4).</p>
+            <p>VHet punt M is het midden van het lijnstuk AB. Ook is het vierkant MBCD getekend.<p/>
+            <p><b>Bereken de coördinaten van het midden N van het vierkant.</b></p>
+            <br>
 
+            <div class="buttons">
+                <p>Open hier de bijbehorende theorie.</p>
+                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
 
-        .quiz-form {
-            position: relative;
-            width: 600px;
-        }
+                <br><br>
 
-        .search-input {
-            width: 100%;
-            height: 50px;
-            border: none;
-            padding: 0 60px 0 20px;
-            border-radius: 25px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            font-size: 18px;
-            outline: none;
-        }
+                <div class="question">
+                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
+                    <button type="button" id="submit-btn">Submit</button>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p id="feedback" class="hidden"></p>
+                </div>
+                
+            </div>
+        </div>
 
-        .search-input::placeholder {
-            color: #9aa0a6;
-        }
-    </style>
-</head>
-<body>
-    <div class="question">
-        <input id="antwoord"
-            type="text" 
-            class="search-input" 
-            placeholder="Type hier je antwoord...">
-            <button type="button" id="submit-btn">Submit</button>
-            <p id="feedback" class="hidden"></p>
-    </div>
-</body>
-</html>`;}
+        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+            src="https://www.geogebra.org/material/iframe/id/xdj3t7es/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
+
+        <div class="wrapper">
+        <div class="push"></div>
+        </div>
+`;}
 
 
          else {
@@ -658,7 +648,7 @@ function loadQuestionContent() {
         }
                 function getAnswer(){
                     const form = document.getElementById("quiz-form");
-                    if (questionId == 4||questionId == 5){
+                    if (questionId == 1 || questionId == 3 || questionId == 4){
                         const selectedOption2 = document.getElementById("antwoord");
                         var chosenAnswer = selectedOption2.value;
                         console.log(chosenAnswer);
@@ -823,7 +813,7 @@ function loadQuestionContent() {
                 prevButton.onclick = async function () {
                     const previousQuestion = questionId - 1;
                     await updateDoc(lessonRef, { current_question: previousQuestion });
-                    window.location.href = `lessonehc.html?id=${previousQuestion}`;
+                    window.location.href = `${lessonId}.html?id=${previousQuestion}`;
                 };
             }
 
@@ -837,7 +827,7 @@ function loadQuestionContent() {
                     nextButton.onclick = async function () {
                         const nextQuestion = questionId + 1;
                         await updateDoc(lessonRef, { current_question: nextQuestion });
-                        window.location.href = `lessonehc.html?id=${nextQuestion}`;
+                        window.location.href = `${lessonId}.html?id=${nextQuestion}`;
                     };
                 } else {
                     nextButton.style.visibility = "hidden"; // Hide next button if no more questions

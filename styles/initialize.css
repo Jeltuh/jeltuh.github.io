@@ -1,1 +1,14 @@
 .modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }
+
+body{
+    background-color: #f8f9fa;
+}
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+a{
+    text-decoration: none;
+}

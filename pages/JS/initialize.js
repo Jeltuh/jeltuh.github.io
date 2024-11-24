@@ -1,36 +1,35 @@
-import { getFirestore, doc, getDoc, collection, query, orderBy } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+// Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
-import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, updateDoc, collection } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
 
-// Firebase configuration
+
+
 const firebaseConfig = {
-apiKey: "AIzaSyC0lml6tn9XBBwMXv2ihniRR6G8w89eAp8",
-authDomain: "pws-onderzoek-48e1c.firebaseapp.com",
-projectId: "pws-onderzoek-48e1c",
-storageBucket: "pws-onderzoek-48e1c.appspot.com",
-messagingSenderId: "509841664982",
-appId: "1:509841664982:web:b8e77c8fc701ab73895277"
+    apiKey: "AIzaSyC0lml6tn9XBBwMXv2ihniRR6G8w89eAp8",
+    authDomain: "pws-onderzoek-48e1c.firebaseapp.com",
+    projectId: "pws-onderzoek-48e1c",
+    storageBucket: "pws-onderzoek-48e1c.appspot.com",
+    messagingSenderId: "509841664982",
+    appId: "1:509841664982:web:b8e77c8fc701ab73895277"
 };
+
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
 const auth = getAuth(app);
-    
-onAuthStateChanged(auth, async (user) => {
-    if (user) {
-}   else {
-    window.location.href = "../../index.html";
-    const white = document.body;
-    white.style.backgroundColor = "rgba(255, 255, 255, 1)";
-    white.style.position = "fixed";
-    white.style.top = "0";
-    white.style.left = "0";
-    white.style.width = "100vw";
-    white.style.height = "100vh";
-    white.style.zIndex = "9999";
-    white.style.display = "none";
+const db = getFirestore(app);
 
-    
+
+
+
+function showMessage(message, divId) {
+    var messageDiv = document.getElementById(divId);
+    messageDiv.style.display = "block";
+    messageDiv.innerHTML = message;
+    messageDiv.style.opacity = 1;
+    setTimeout(function () {
+        messageDiv.style.opacity = 0;
+    }, 5000);
 }
 
 // Check of de gebruiker ingelogd is
@@ -238,6 +237,55 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
             latestQuestion: 1 // Set to the first question as well
         });
 
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                userUid, 
+                "lessons", 
+                "lessonehc", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await updateDoc(questionRef, { attempts: 0 });
+        }
+
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                userUid, 
+                "lessons", 
+                "raaklijn", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await updateDoc(questionRef, { attempts: 0 });
+        }
+
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                userUid, 
+                "lessons", 
+                "vectoren", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await updateDoc(questionRef, { attempts: 0 });
+        }
+    
+
         // Automatically log the user in after registration
         registerModal.hide(); // Close the register modal
 
@@ -370,4 +418,3 @@ function showToast(content = "Unknown error") { //You can change the default val
 }
 
 //Simulating a call to your API   
-});

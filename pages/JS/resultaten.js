@@ -114,6 +114,7 @@ async function displayResults() {
             // References to both "users" and "questions" collections
             const userLessonRef = collection(db, "users", userId, "lessons", lessonId, "questions");
             const questionsCollectionRef = collection(db, "questions", lessonId, "nummers");
+            console.log("hoppa" + lessonId);
 
             // Fetch user attempts data
             const userAttemptsSnapshot = await getDocs(userLessonRef);
@@ -223,4 +224,4 @@ document.getElementById("library").addEventListener("click", backToLibrary);
 
 
         // Call displayResults after DOM has loaded
-        window.onload = displayResults;
+window.onload = displayResults();

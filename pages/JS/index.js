@@ -162,7 +162,7 @@ if (!dynamicButton) {
 onAuthStateChanged(auth, async (user) => {
     if (user) {
         // User is logged in
-        dynamicButton.textContent = "Ga naar";
+        dynamicButton.textContent = "Ga naar →";
         dynamicButton.onclick = () => {
             window.location.href = "pages/HTML/library.html";
         };
@@ -253,6 +253,61 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
             current_question: 1, // Starting with the first question
             latestQuestion: 1 // Set to the first question as well
         });
+
+        const lessonsRef3 = doc(db, "users", user.uid, "lessons", "vectoren");
+        await setDoc(lessonsRef3, {
+            completed: false,
+            current_question: 1, // Starting with the first question
+            latestQuestion: 1 // Set to the first question as well
+        });
+
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                user.uid, 
+                "lessons", 
+                "lessonehc", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await setDoc(questionRef, { attempts: 0 });
+        }
+
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                user.uid, 
+                "lessons", 
+                "raaklijn", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await setDoc(questionRef, { attempts: 0 });
+        }
+
+        for (let questionId = 1; questionId <= 10; questionId++) {
+            // Define the document reference for each question
+            const questionRef = doc(
+                db, 
+                "users", 
+                user.uid, 
+                "lessons", 
+                "vectoren", 
+                "questions", 
+                questionId.toString()
+            );
+
+            // Update the document with the "attempts" field set to 0
+            await setDoc(questionRef, { attempts: 0 });
+        }
 
         // Automatically log the user in after registration
         registerModal.hide(); // Close the register modal
@@ -386,299 +441,3 @@ function showToast(content = "Unknown error") { //You can change the default val
 }
 
 //Simulating a call to your API   
-
-
-
-
-
-
-
-function checkAnswer() {
-    const questionId = getQuestionIdFromUrl();
-    const questionData = questions[questionId];
-    const userAnswer = document.getElementById("answer").value.trim();
-
-    if (questionData) {
-        document.getElementById("question").textContent = questionData.question;
-        document.getElementById("hint").textContent = questionData.hint;
-        document.getElementById("hint").style.display = "none";
-    } else {
-        console.error("Vraag niet gevonden.");
-    }
-
-    if (questionData && userAnswer === questionData.answer) {
-        alert("Correct! Ga door naar de volgende vraag.");
-        window.location.href = `question.html?id=${parseInt(questionId) + 1}`;
-    } else {
-        attempts++;
-        alert("Fout antwoord, probeer het opnieuw.");
-        if (attempts >= 2) {
-            document.getElementById("hint").style.display = "block";
-        }
-    }
-}
-
-
-
-
-
-
-function getQuestionIdFromUrl() {
-    const params = new URLSearchParams(window.location.search);
-    return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
-}
-
-function loadQuestionContent() {
-    const questionId = getQuestionIdFromUrl();
-    const questionContainer = document.getElementById("body-text");
-
-    // Clear the container first
-    questionContainer.innerHTML = "";
-
-    if (questionId === 1) {
-        questionContainer.innerHTML = `
-                        <h3>Opdracht 1</h3>
-
-        <p><i>Deze opdracht komt overeen met vraag 7 in je werkboek.</i></p>
-        <p>Bij deze opdracht is te zien dat het verplaatsen van punt B op de eenheidscirkel
-            er voor zorgt dat de hoek tot punt B ook veranderd.</p>
-        <p>Kijk door het verschuiven van
-            punt B op de eenheidscirkel wat dit betekent voor de hoek a.</p>
-        <p>Tip: De cos(a) veranderd met de x-waarde van B, en de sin(a) veranderd met de y-waarde van B</p>
-
-
-        <p><b> 7A.</b> Xb = 0,81</p>
-        <p><b> 7B.</b> Yb = 0,94</p>
-        <p><b> 7C.</b> Xb = 0,26</p>
-        <p><b> 7D.</b> Yb = -0,22</p>
-
-        <br>
-        <p>Zie de bijlage voor de figuur.</p>
-
-
-        <div class="buttons">
-            <!-- Modal Bijlage -->
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
-                bijlage</button>
-
-            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <img src="../../assets/hf8-vraag7.png">
-                    </div>
-                </div>
-            </div>
-
-            
-            <p>Controleer hier je antwoorden en bekijk de bijbehorende theorie.</p>
-
-
-            <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
-
-
-            <!-- Modal Uitwerkingen -->
-            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#exampleModalCenter">
-                Uitwerkingen
-            </button>
-
-            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
-                aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Uitwerkingen</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <b>A:</b> <i>De X wordt gegeven. Gebruik daarom de Cosinus. Cos(a)=0,81 in de GR geeft
-                                35,90...°. Afgerond is de hoek a dus ≈ <b>35,9°</b>.</i><br><br>
-                            <b>B:</b> <i>De Y wordt gegeven. Gebruik daarom de Sinus. Sin(a)=0,94 in de GR geeft
-                                70,05...°.
-                                In het plaatje is te zien dat punt B voorbij de 90° komt.</i><br>
-                            Dit betekend dat er eerst 180° - het antwoord moet worden gedaan. Op deze manier kom je uit
-                            op a
-                            ≈ 180° - 70,1° ≈ <b>109,9°</b>.
-                        </div>
-                        <div class="modal-footer">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/c9dq6qrb/width/1000/height/569/border/ffffff/sfsb/true/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
-            width="80%" height="50%" style="position: absolute; right: -36%; top:20%"> </iframe>
-
-        <div class="wrapper">
-        <div class="push"></div>
-    </div>
-
-              `;
-    } else if (questionId === 2) {
-        questionContainer.innerHTML = `
-                <h2>Vraag 2</h2>
-                <p>Wat is de afgeleide van x^2?</p>
-                <input type="text" id="answer">
-                <button onclick="checkAnswer(2)">Controleer antwoord</button>
-              `;
-    } else {
-        questionContainer.innerHTML = `
-                <h2>Vraag ${questionId}</h2>
-                <p>Deze vraag bestaat nog niet. Kies een andere vraag.</p>
-              `;
-    }
-}
-
-// Call the function when the page loads
-
-
-
-
-
-
-// Example user and lesson IDs
-const userId = "wmn89rkE03Yh2sAdV2sS4W6UwY02";  // Replace with your actual user ID
-const lessonId = "lessonehc";  // Replace with your actual lesson ID
-
-// Get the question number from the URL parameter `id`
-const urlParams = new URLSearchParams(window.location.search);
-const questionId = parseInt(urlParams.get("id")) || 1;  // Defaults to 1 if `id` is not present
-
-// Get the reference to the lesson document
-const lessonRef = doc(db, 'users', userId, 'lessons', lessonId);
-
-// Function to initialize the current question on page load
-async function initializeCurrentQuestion() {
-    try {
-        const docSnap = await getDoc(lessonRef);
-
-        if (docSnap.exists()) {
-            const currentQuestion = docSnap.data().current_question || 1;
-
-            // Check if the URL `id` matches the current question; if not, redirect to the current question
-            if (questionId !== currentQuestion) {
-                window.location.href = `test2.html?id=${currentQuestion}`;
-            }
-        } else {
-            console.error("No such document!");
-        }
-    } catch (error) {
-        console.error("Error initializing question:", error);
-    }
-}
-
-// Function to go to the next question
-
-
-// Function to mark the lesson as completed
-async function markLessonCompleted() {
-    try {
-        await updateDoc(lessonRef, { completed: true });
-        console.log("Lesson marked as completed.");
-        checkLessonCompletion();
-    } catch (error) {
-        console.error("Error marking lesson as completed:", error);
-    }
-}
-
-// Function to check lesson completion and display the message
-async function checkLessonCompletion() {
-    try {
-        const docSnap = await getDoc(lessonRef);
-
-        if (docSnap.exists()) {
-            const isCompleted = docSnap.data().completed;
-
-            const completionMessage = document.getElementById('completionMessage');
-            if (isCompleted) {
-                completionMessage.style.visibility = 'hidden';  // Show the message
-            } else {
-                completionMessage.style.visibility = 'shown';  // Hide the message
-            }
-        }
-    } catch (error) {
-        console.error("Error checking lesson completion:", error);
-    }
-}
-
-
-
-// Event listener for the "Next Question" button
-
-// Event listener for the "Mark Completed" button
-
-// Initialize the question display and check completion status on page load
-
-function replaceButton() {
-    // Get the original button by its id
-    const oldButton = document.getElementById('next');
-
-    // Create the new button element
-    const newButton = document.createElement('button');
-
-    // Set the properties for the new button
-    newButton.type = 'button';
-    newButton.id = "markCompletedButton"
-    newButton.classList.add('btn', 'btn-success');
-    newButton.innerText = 'Inleveren';
-
-
-
-    // Replace the old button with the new one
-    oldButton.parentNode.replaceChild(newButton, oldButton);
-
-    newButton.addEventListener('click', markLessonCompleted);
-}
-
-
-
-function updateButtons() {
-    const id = getQuestionIdFromUrl();
-
-    const prevButton = document.getElementById('previous');
-    const nextButton = document.getElementById('next');
-
-    // Show/Hide previous button if on the first question
-    if (id === 1) {
-        prevButton.style.visibility = 'hidden'; // Hide previous button
-    } else {
-        prevButton.style.visibility = 'shown'; // Show previous button
-        prevButton.onclick = async function () {
-            const questionId = getQuestionIdFromUrl();
-            const nextQuestion = questionId - 1;
-            await updateDoc(lessonRef, { current_question: nextQuestion });
-            window.location.href = `test2.html?id=${id - 1}`;
-        };
-    }
-
-    // Show/Hide next button if on the last question
-    if (id === 5) {
-        replaceButton();
-    } else {
-        nextButton.style.visibility = 'shown'; // Show next button
-        nextButton.onclick = async function () {
-            const questionId = getQuestionIdFromUrl();
-            const nextQuestion = questionId + 1;
-            await updateDoc(lessonRef, { current_question: nextQuestion });
-            window.location.href = `test2.html?id=${id + 1}`;
-        };
-    }
-}
-
-function laadOpdracht() {
-    const questionId = getQuestionIdFromUrl();
-    document.getElementById("question").innerText = "Opdracht " + questionId;
-}
-
-
-
-// Call the function when the page loads
-
-
-window.onload = function () {
-
-};

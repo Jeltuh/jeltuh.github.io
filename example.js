@@ -923,3 +923,518 @@ async function initializeCurrentQuestion() {
       </div>
     </div>
   </div>
+
+  
+
+import { getFirestore, doc, getDocs, collection, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+// Firebase configuration
+const firebaseConfig = {
+apiKey: "AIzaSyC0lml6tn9XBBwMXv2ihniRR6G8w89eAp8",
+authDomain: "pws-onderzoek-48e1c.firebaseapp.com",
+projectId: "pws-onderzoek-48e1c",
+storageBucket: "pws-onderzoek-48e1c.appspot.com",
+messagingSenderId: "509841664982",
+appId: "1:509841664982:web:b8e77c8fc701ab73895277"
+};
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+        
+function backToLibrary(){
+    window.location.href = "library.html";
+}
+
+
+function getQuestionIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    return parseInt(params.get("id")) || 1; // Default to 1 if no ID is provided
+}
+
+function getLessonId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id") || 1; // Default to 1 if no ID is provided
+}
+
+    // Function to get the lesson reference
+    export async function getLessonRef() {
+        return new Promise((resolve, reject) => {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    const userId = user.uid;
+                    const lessonId = getLessonId();
+                    console.log(userId + lessonId)
+                    const lessonRef = doc(getFirestore(), 'users', userId, 'lessons', lessonId);
+
+                    resolve(lessonRef);
+                } else {
+                    console.error("User is not signed in.");
+                    reject(new Error("User not signed in"));
+                }
+            });
+        });
+    }
+
+ // Function to check if the lesson is completed
+async function checkLessonCompleted() {
+    return new Promise((resolve, reject) => {
+        onAuthStateChanged(getAuth(), async (user) => {
+            if (user) {
+                const userId = user.uid;
+
+                // Retrieve the current lesson ID from the URL
+                const fullPath = window.location.pathname; // e.g., "/lesson/page.html"
+                const lessonId = getLessonId();
+
+                // Reference to the lesson document
+                const lessonDocRef = doc(getFirestore(), 'users', userId, 'lessons', lessonId);
+
+                try {
+                    const lessonDoc = await getDoc(lessonDocRef);
+
+                    if (lessonDoc.exists()) {
+                        const lessonData = lessonDoc.data();
+
+                        // Check the `completed` field
+                        const isCompleted = lessonData.completed || false; // Default to `false` if not set
+                        console.log(`Lesson ${lessonId} completed status: ${isCompleted}`);
+
+                        resolve(isCompleted);
+                    } else {
+                        console.error(`Lesson document ${lessonId} does not exist.`);
+                        resolve(false);
+                    }
+                } catch (error) {
+                    console.error("Error fetching lesson document:", error);
+                    reject(error);
+                }
+            } else {
+                backToLibrary();
+                console.error("User is not signed in.");
+                reject(new Error("User not signed in"));
+            }
+        });
+    });
+}
+
+    
+// Fetch all questions under a lesson and calculate the results
+async function displayResults() {
+    const lessonCompleted = await checkLessonCompleted();
+    if (lessonCompleted){
+    try {
+        // Get the lesson reference (collection of questions)
+        const lessonRef = await getLessonRef();
+        const questionsCollection = collection(lessonRef, 'questions');
+        
+        // Fetch all questions
+        const querySnapshot = await getDocs(questionsCollection);
+
+        let totalQuestions = 0;
+        let totalAttempts = 0;
+        let summaryHtml = "";
+
+        // Loop through each question document
+        querySnapshot.forEach((doc) => {
+            const questionData = doc.data();
+            const attempts = questionData.attempts || 0; // Default to 0 if not defined
+            totalQuestions++;
+            totalAttempts += attempts;
+
+            // Add question details to the summary table
+            summaryHtml += `
+                <tr>
+                    <td>Question ${doc.id}</td>
+                    <td>${attempts}</td>
+                </tr>
+            `;
+        });
+
+        // Calculate the score (based on attempts and total questions)
+        const score = totalQuestions > 0 ? ((totalQuestions / totalAttempts) * 100).toFixed(2) : 0;
+
+        // Update HTML
+        document.getElementById("total-questions").textContent = totalQuestions;
+        document.getElementById("total-attempts").textContent = totalAttempts;
+        document.getElementById("score").textContent = `${score}%`;
+        document.getElementById("question-summary").innerHTML = summaryHtml;
+    } catch (error) {
+        console.error("Error fetching lesson data:", error);
+    }
+
+
+            // Calculate score
+            const score = ((totalQuestions / totalAttempts) * 100).toFixed(2);
+
+            // Update HTML
+            document.getElementById("total-questions").textContent = totalQuestions;
+            document.getElementById("total-attempts").textContent = totalAttempts;
+            document.getElementById("score").textContent = `${score}%`;
+            document.getElementById("question-summary").innerHTML = summaryHtml;
+        }
+    else {
+        window.location.href = "library.html";
+    }}  
+
+
+// Function to reset lesson data
+async function resetLessonStatistics() {
+    try {
+        // Wait for the authenticated user
+        const auth = getAuth();
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                const db = getFirestore();
+                const userId = user.uid;
+
+                // Get lesson ID from the current URL or define it explicitly
+                const lessonId = getLessonId();
+
+                // Reference to the lesson document
+                const lessonRef = doc(db, "users", userId, "lessons", lessonId);
+
+                // Reset lesson-level fields
+                await updateDoc(lessonRef, {
+                    completed: false,
+                    current_question: 0,
+                    latestQuestion: 0,
+                });
+
+                console.log("Lesson-level statistics reset successfully!");
+
+                // Reset question-level statistics
+                const questionsRef = collection(db, "users", userId, "lessons", lessonId, "questions");
+                const questionsSnapshot = await getDocs(questionsRef);
+
+                const resetPromises = [];
+                questionsSnapshot.forEach((questionDoc) => {
+                    const questionRef = doc(db, "users", userId, "lessons", lessonId, "questions", questionDoc.id);
+                    resetPromises.push(updateDoc(questionRef, { attempts: 0 }));
+                });
+
+                // Wait for all question resets to complete
+                await Promise.all(resetPromises);
+                console.log("All question statistics reset successfully!");
+
+                // Redirect to the library page
+                window.location.href = "library.html";
+            } else {
+                console.error("User is not signed in.");
+            }
+        });
+    } catch (error) {
+        console.error("Error resetting lesson statistics:", error);
+    }
+}
+
+// Attach the function to a button click
+document.getElementById("reset-button").addEventListener("click", resetLessonStatistics);
+document.getElementById("library").addEventListener("click", backToLibrary);
+
+
+        // Call displayResults after DOM has loaded
+        window.onload = displayResults;
+
+
+
+
+        <!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script type="module" src="../JS/initialize.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Script for Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="library.css">
+    <title>Placeholder | Library</title>
+    <script src="../JS/functions.js"></script>
+</head>
+
+<body>
+    <div id="foreground-overlay">
+        <header>
+            <nav class="navbar fixed-top navbar-expand-sm navbar-light bg-light py-3" style="background-color: #0d1117;">
+                <a class="navbar-brand" href="../../index.html">Placeholder</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+    
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbareDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Library
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="./libraryvwo4.html">Getal en Ruimte VWO 4</a>
+                                <a class="dropdown-item" href="./libraryvwo5.html">Getal en Ruimte VWO 5</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="./library.html">Alle opdrachten</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Theorie
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="./theorievwo4.html">Getal en Ruimte VWO 4</a>
+                                <a class="dropdown-item" href="./theorievwo5.html">Getal en Ruimte VWO 5</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="./theorie.html">Alle theorie</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./hoewerkthet.html">Hoe werkt het?</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="./contact.html">Contact</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0 mx-auto">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search..." aria-label="Search">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</i></button>
+                    </form>
+                    
+                    <div class="d-flex justify-content-end">
+                        <div class="btn-group">
+                        <!-- Account Dropdown (shown when logged in) -->
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="accountDropdown"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Account
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
+                            <li><span class="dropdown-item">Points: <span id="accountPoints">0</span></span></li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li><button id="openAccountModal" class="dropdown-item">Personal details</button></li>
+                            <li><button id="logoutButton" class="dropdown-item">Logout</button></li>
+                        </div>
+                        </div>
+    
+                        <!-- Login Button (shown when not logged in) -->
+                        <button id="loginButton" class="btn btn-primary" data-toggle="modal"
+                            data-target="#loginModal">Login</button>
+                        <!-- Login Modal -->
+                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="loginModalLabel">Login</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="email" id="emailInput" class="form-control mb-3" placeholder="Email">
+                                        <input type="password" id="passwordInput" class="form-control mb-3"
+                                            placeholder="Password">
+                                        <button id="loginSubmitButton" class="btn btn-primary w-100">Login</button>
+                                        <p class="mt-3 text-center">
+                                            Don’t have an account? <a href="#" id="openRegisterModal">Register here</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Register Modal -->
+                        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="registerModalLabel">Register</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <input type="text" id="firstNameInput" class="form-control mb-3"
+                                            placeholder="First Name">
+                                        <input type="text" id="lastNameInput" class="form-control mb-3"
+                                            placeholder="Last Name">
+                                        <input type="email" id="registerEmailInput" class="form-control mb-3"
+                                            placeholder="Email">
+                                        <input type="password" id="registerPasswordInput" class="form-control mb-3"
+                                            placeholder="Password">
+                                        <button id="registerSubmitButton" class="btn btn-primary w-100">Register</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+    
+                        <!-- Account Modal -->
+                        <div class="modal fade" id="accountModal" tabindex="-1" role="dialog"
+                            aria-labelledby="accountModalLabel" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="accountModalLabel">Account Settings</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <!-- Sidebar Navigation -->
+                                            <div class="col-md-4">
+                                                <div class="list-group">
+                                                    <a href="#accountDetails"
+                                                        class="list-group-item list-group-item-action active"
+                                                        data-toggle="list">Account Details</a>
+                                                    <a href="#" class="list-group-item list-group-item-action text-danger"
+                                                        id="logoutButton2">Logout</a>
+                                                </div>
+                                            </div>
+                                            <!-- Main Content Area -->
+                                            <div class="col-md-8">
+                                                <div class="tab-content">
+                                                    <!-- Account Details Section -->
+                                                    <div class="tab-pane fade show active" id="accountDetails">
+                                                        <h3>Account Details</h3>
+    
+                                                        <!-- First Name and Last Name Update Form -->
+                                                        <form id="nameForm">
+                                                            <div class="form-group">
+                                                                <label for="firstName">First Name</label>
+                                                                <input type="text" class="form-control" id="firstName"
+                                                                    placeholder="Enter first name">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="lastName">Last Name</label>
+                                                                <input type="text" class="form-control" id="lastName"
+                                                                    placeholder="Enter last name">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Save Name
+                                                                Changes</button>
+                                                        </form>
+    
+                                                        <hr>
+    
+                                                        <!-- Password Update Form -->
+                                                        <form id="passwordForm">
+                                                            <h5>Change Password</h5>
+                                                            <div class="form-group">
+                                                                <label for="oldPassword">Current Password</label>
+                                                                <input type="password" class="form-control" id="oldPassword"
+                                                                    placeholder="Enter current password">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="newPassword">New Password</label>
+                                                                <input type="password" class="form-control" id="newPassword"
+                                                                    placeholder="Enter new password">
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="confirmNewPassword">Confirm New Password</label>
+                                                                <input type="password" class="form-control"
+                                                                    id="confirmNewPassword"
+                                                                    placeholder="Confirm new password">
+                                                            </div>
+                                                            <button type="submit" class="btn btn-primary">Save Password
+                                                                Changes</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </nav>
+        </header>
+
+    <br><br><br><br>
+
+    <!-- Hier beginnen met typen. -->
+
+
+    <div class="container">
+        <h1>ALLE LESSEN</h1>
+        <div class="lesson" id="lessonehc">
+            <div class="icon">
+                <img src="../../assets/computer.png">
+            </div>
+            <div class="content">
+                <h2>Les #1</h2>
+                <p>Deze les gaat over <b>de eenheidscirkel.</b></p>
+                <span>In deze les wordt de eenheidscirkel door</span>
+                <br><span>middel van een interactief plaatje duidelijk gemaakt.</span>
+                <p id="completionMessage" style="display: none;"></p>
+                <button class="knop" id="lesson-button">START</button>
+            </div>
+        </div>
+
+        <div class="lesson" id="raaklijn">
+            <div class="icon">
+                <img src="../../assets/computer.png">
+            </div>
+            <div class="content">
+                <h2>Les #2</h2>
+                <p>Deze les gaat over <b>de raaklijn</b></p>
+                <span>Deze les behandelt de kunst van de raaklijn.</span>
+                <br><span>Hoe werkt dit en wat kan je ermee?</span>
+                <button class="knop" id="lesson-button" onclick="rkln_opgave(1)">START</button>
+            </div>
+        </div>
+
+        <div class="lesson" id="vectoren">
+            <div class="icon">
+                <img src="../../assets/computer.png">
+            </div>
+            <div class="content">
+                <h2>Les #3</h2>
+                <p>Deze les gaat over ...</p>
+                <span>beschrijving</span>
+                <button class="knop" id="lesson-button" onclick="start_opgave3()">START</button>
+            </div>
+        </div>
+
+        <div class="lesson">
+            <div class="icon">
+                <img src="../../assets/computer.png">
+            </div>
+            <div class="content">
+                <h2>Les #4</h2>
+                <p>Deze les gaat over ...</p>
+                <span>beschrijving</span>
+                <button class="knop" id="lesson-button" onclick="start_opgave4()">START</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+    <!--Script for Bootstrap-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script type="module" src="../JS/library.js"></script>
+</body>
+
+
+
+
+</script>
+
+</html>

@@ -18,7 +18,7 @@ h1{
 .lesson{
     width: 48%;
     float: left;
-    background: #f1f1f1;
+    background: #ffffff;
     margin: 10px;
     padding: 10px;
     border-radius: 15px;
@@ -34,8 +34,8 @@ h1{
 }
 
 button{
-    background: #107cfc;
-    border-color: #107cfc;
+    background: #007bff;
+    border-color: #007bff;
     border-radius: 7px;
     padding: 6px 6px;
     color: #fff;
@@ -48,4 +48,19 @@ button{
     bottom:-5px; 
     width: 90%; 
     right: 5%;
+}
+
+body{
+    background-color: #f8f9fa;
+}
+
+.modal { background: rgba(0, 0, 0, 0.5) !important; } .modal-backdrop { display: none !important; }
+
+.dropdown-menu-right {
+    right: 0;
+    left: auto;
+}
+
+a{
+    text-decoration: none;
 }
