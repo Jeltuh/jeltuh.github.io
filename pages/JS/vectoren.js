@@ -506,7 +506,8 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) voor Q:</i></p>
+                    <p><img src="../../assets/notatie-voorbeeld.png"></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -587,7 +588,8 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) voor Q:</i></p>
+                    <p><img src="../../assets/notatie-voorbeeld.png"></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -623,7 +625,8 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) voor Q:</i></p>
+                    <p><img src="../../assets/notatie-voorbeeld.png"></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
