@@ -406,7 +406,7 @@ var Answer = 0;
 
 function correctAnswer() {
     if (questionId === 1) {
-        Answer = "Q(7(1)/(3),5(1)/(3)) en R(6(1)/(3),6(2)/(3))";
+        Answer = " ";
     }
     if (questionId === 3) {
         Answer = "N(9(1)/(2),8(1)/(2))";
@@ -489,12 +489,11 @@ function loadQuestionContent() {
         <div class="question">
             <h3>Opdracht 1</h3>
             <br>
-            <p><i>Deze opdracht komt overeen met vraag 10.17 in je werkboek.</i></p>
+            <p><i>Deze opdracht komt overeen met vraag 2.40 in je werkboek.</i></p>
             <br>
-            <p style="margin-bottom:0;">Gegeven is het vierkant ABCD met A(3, 0) en D(0, 4). Op zijde BC liggen de punten P en S waarbij BP = PS = SC.</p>
-            <p style="margin : 0; padding-top:0;">PS is een zijde van het vierkant PQRS.<p/>
-            <p style="margin : 0; padding-top:0;">Zie de figuur.</p>
-            <p>Bereken de coördinaten van de punten Q en R.</p>
+            <p>Gegeven is de functie<i> f(x) = 0,1x3 + x2 - 6.</i></p>
+            <p  style="margin-bottom:0;"><b>a. Schets de hellinggrafiek van f in het GeoGebra scherm.</b></p>
+            <p>b. De grafiek van ƒ is de hellinggrafiek van een functie g. <b>Teken een globale grafiek van g in het GeoGebra scherm.</b></p>
             <br>
 
             <div class="buttons">
@@ -504,9 +503,8 @@ function loadQuestionContent() {
                 <br><br>
 
                 <div class="question">
-                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
+                    <input style="visibility: hidden" id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord..." value=" ">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -514,7 +512,7 @@ function loadQuestionContent() {
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/rsrrhnde/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            src="https://www.geogebra.org/material/iframe/id/kegvwhms/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
             width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
@@ -527,39 +525,32 @@ function loadQuestionContent() {
          <div class="question">
             <h3>Opdracht 2</h3>
             <br>
-            <h2>Hoe ziet deze vector eruit als je hem rechtsom draait?</h2>
-            <img src="../../assets/vector1.png" width="100" height="50">
-
+            <p><i>Deze opdracht komt overeen met vraag 2.41 in je werkboek.</i></p>
+            <br>
+            <p>Gegeven is de functie<i> f(x) = x2-4x + 5 en g(x) = x2-4x-5</i></p>
+            <p  style="margin-bottom:0;"><b>a. Schets de hellinggrafiek van f en de hellinggrafiek van g in het GeoGebra scherm.</b></p>
+            <p>b. De hellinggrafiek van ƒ is ook de hellinggrafiek van een functie h. De grafiek van h gaat door het punt A(3, 4).</p>
+            <p><b>Stel de formule op van h.</b></p>
+            <br>
 
             <div class="buttons">
+                <p>Open hier de bijbehorende theorie.</p>
+                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+                <br><br>
 
                 <div class="question">
-                    <form id="quiz-form">
-                    <div class="answer">
-                        <label for="1"><img src="../../assets/vectoren/vector-2-1.png" width="90" height="35"></label>
-                        <input type="radio" id="1" name="answer" value="1">
-                    </div>
-                    <div class="answer">
-                        <label for="2"><img src="../../assets/vectoren/vector-2-2.png" width="90" height="35"></label>
-                        <input type="radio" id="2" name="answer" value="2">
-                    </div>
-                    <div class="answer">
-                        <label for="3"><img src="../../assets/vectoren/vector-2-3.png" width="90" height="35"></label>
-                        <input type="radio" id="3" name="answer" value="3">
-                    </div>
-                    <div class="answer">
-                        <label for="4"><img src="../../assets/vectoren/vector-2-4.png" width="90" height="35"></label>
-                        <input type="radio" id="4" name="answer" value="4">
-                    </div>
+                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                </form>
                     <p id="feedback" class="hidden"></p>
                 </div>
-                                <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
                 
             </div>
         </div>
+
+        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+            src="https://www.geogebra.org/material/iframe/id/m8fpymbx/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
+            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
         <div class="push"></div>
@@ -571,11 +562,12 @@ function loadQuestionContent() {
         <div class="question">
             <h3>Opdracht 3</h3>
             <br>
-            <p><i>Deze opdracht komt overeen met vraag 10.15 in je werkboek.</i></p>
+            <p><i>Deze opdracht komt overeen met vraag 2.28 in je werkboek.</i></p>
             <br>
-            <p>Gegeven is het vierkant ABCD met A(5, 2) en D(2, 6).</p>
-            <p>Verder is het punt M het midden van diagonaal AC. Ook is het vierkant MBNC getekend.<p/>
-            <p><b>Bereken de coördinaten van punt N.</b></p>
+            <p>Gegeven is the functie <img src="../../assets/raaklijn/raaklijn-3-vraag.png" width="140" height="50"> </p>
+            <p style="margin-bottom:0;">De lijn k raakt de grafiek van ƒ in het punt A met xA = -2.</p>
+            <p>De lijn l raakt de grafiek van ƒ in het punt A met xB = 1.<p/>
+            <p><b>Bereken de coördinaten van het snijpunt S van k en l. Rond af op twee decimalen.</b></p>
             <br>
 
             <div class="buttons">
@@ -595,7 +587,7 @@ function loadQuestionContent() {
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/hrgbuyzm/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            src="https://www.geogebra.org/material/iframe/id/fteqy9hj/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
             width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
@@ -607,11 +599,12 @@ function loadQuestionContent() {
             <div class="question">
             <h3>Opdracht 4</h3>
             <br>
-            <p><i>Deze opdracht komt overeen met vraag 10.16 in je werkboek.</i></p>
+            <p><i>Deze opdracht komt overeen met vraag 2.30 in je werkboek.</i></p>
             <br>
-            <p>Gegeven zijn de punten A(0, 2) en B(8, 4).</p>
-            <p>VHet punt M is het midden van het lijnstuk AB. Ook is het vierkant MBCD getekend.<p/>
-            <p><b>Bereken de coördinaten van het midden N van het vierkant.</b></p>
+            <p>Gegeven zijn de functies <img src="../../assets/raaklijn/raaklijn-4-vraag1.png" width="140" height="50"> en <img src="../../assets/raaklijn/raaklijn-4-vraag2.png" width="140" height="30"></p>
+            <p style="margin-bottom:0;">De grafieken van f en g snijden elkaar in het punt S.</p>
+            <p>De lijn k raakt de grafiek in S en de lijn l raakt de grafiek van g in S.<p/>
+            <p><b>Stel van zowel k als van l de formule op.</b></p>
             <br>
 
             <div class="buttons">
@@ -631,7 +624,7 @@ function loadQuestionContent() {
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/xdj3t7es/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            src="https://www.geogebra.org/material/iframe/id/gnujkne9/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
             width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
@@ -643,11 +636,12 @@ function loadQuestionContent() {
             <div class="question">
             <h3>Opdracht 4</h3>
             <br>
-            <p><i>Deze opdracht komt overeen met vraag 10.16 in je werkboek.</i></p>
+            <p><i>Deze opdracht komt overeen met vraag 2.30 in je werkboek.</i></p>
             <br>
-            <p>Gegeven zijn de punten A(0, 2) en B(8, 4).</p>
-            <p>VHet punt M is het midden van het lijnstuk AB. Ook is het vierkant MBCD getekend.<p/>
-            <p><b>Bereken de coördinaten van het midden N van het vierkant.</b></p>
+            <p>Gegeven zijn de functies <img src="../../assets/raaklijn/raaklijn-4-vraag1.png" width="140" height="50"> en <img src="../../assets/raaklijn/raaklijn-4-vraag2.png" width="140" height="30"></p>
+            <p style="margin-bottom:0;">De grafieken van f en g snijden elkaar in het punt S.</p>
+            <p>De lijn k raakt de grafiek in S en de lijn l raakt de grafiek van g in S.<p/>
+            <p><b>Stel van zowel k als van l de formule op.</b></p>
             <br>
 
             <div class="buttons">
@@ -667,7 +661,7 @@ function loadQuestionContent() {
         </div>
 
         <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/xdj3t7es/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+            src="https://www.geogebra.org/material/iframe/id/gnujkne9/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
             width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
 
         <div class="wrapper">
@@ -685,7 +679,7 @@ function loadQuestionContent() {
         }
                 function getAnswer(){
                     const form = document.getElementById("quiz-form");
-                    if (questionId == 1 || questionId == 3 || questionId == 4){
+                    if (questionId == 1 || questionId == 2 ||questionId == 3 || questionId == 4 || questionId == 5){
                         const selectedOption2 = document.getElementById("antwoord");
                         var chosenAnswer = selectedOption2.value;
                         console.log(chosenAnswer);
@@ -843,7 +837,8 @@ function loadQuestionContent() {
             // Reference navigation buttons
             const prevButton = document.getElementById("previous");
             const nextButton = document.getElementById("next");
-            const submitButton = document.getElementById("submit-btn")
+            const submitButton = document.getElementById("submit-btn");
+
 
             // Handle the previous button
             if (questionId === 1) {
@@ -856,14 +851,14 @@ function loadQuestionContent() {
                     window.location.href = `${lessonId}.html?id=${previousQuestion}`;
                 };
             }
-            
+
             if (latestQuestion > currentQuestion){
                 submitButton.disabled = true;
             }
 
             // Handle the next button
             if (nextButton) {
-                if (currentQuestion === 5) {
+                if (currentQuestion === 10) {
                     replaceButton();
                 }
                 else if (latestQuestion > questionId) {
@@ -918,4 +913,5 @@ function loadQuestionContent() {
         loadQuestionContent();
         updateButtons();
         laadOpdracht();
+        console.log("wtf");
     };

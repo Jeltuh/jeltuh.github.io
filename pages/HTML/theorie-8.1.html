@@ -96,7 +96,9 @@
                 <!-- Modal Bijlage -->
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Zie de
                     bijlage</button>
-    
+                    <a onclick="open_theorie(8.2)" id="next-arrow" class="arrow-button">&#x2192;</a>
+                    <a onclick="open_theorie(8.1)" id="previous-arrow" class="arrow-button">&#x2190;</a>
+
                 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
                     aria-hidden="true">
                     <div class="modal-dialog modal-lg">
@@ -111,14 +113,15 @@
             <img src="../../assets/theorie-8.1-A.png">
             <div class="wrapper">
                 <div class="push"></div>
-            </div>
-            <footer class="footer">
+                <footer class="footer">
                 <button type="button" class="btn btn-primary" id="startbutton">Vorige</button>
                 <p>Eenheidscirkel 1</p>
                 <button type="button" class="btn btn-primary" onclick="open_theorie(8.2)">Volgende</button>
             </footer>
+            </div>
         </div>
     </div>
+
 
     <!--Script for Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"

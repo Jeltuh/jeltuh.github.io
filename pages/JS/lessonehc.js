@@ -698,6 +698,7 @@ function loadQuestionContent() {
                     if (chosenAnswer == answer) {
                         feedback.textContent = "Correct!";
                         feedback.style.color = "green";
+                        submitBtn.disabled = true;
                         correct();
                     } else {
                         feedback.textContent = "Helaas, probeer het opnieuw.";
@@ -810,10 +811,13 @@ function loadQuestionContent() {
             const lessonRef = await getLessonRef();
             const docSnap = await getDoc(lessonRef);
             const latestQuestion = docSnap.exists() ? docSnap.data().latestQuestion : 0;
+            const currentQuestion = docSnap.exists() ? docSnap.data().current_question : 0;
 
             // Reference navigation buttons
             const prevButton = document.getElementById("previous");
             const nextButton = document.getElementById("next");
+            const submitButton = document.getElementById("submit-btn");
+
 
             // Handle the previous button
             if (questionId === 1) {
@@ -827,9 +831,13 @@ function loadQuestionContent() {
                 };
             }
 
+            if (latestQuestion > currentQuestion){
+                submitButton.disabled = true;
+            }
+
             // Handle the next button
             if (nextButton) {
-                if (latestQuestion === 6) {
+                if (currentQuestion == 5) {
                     replaceButton();
                 }
                 else if (latestQuestion > questionId) {
@@ -884,5 +892,4 @@ function loadQuestionContent() {
         loadQuestionContent();
         updateButtons();
         laadOpdracht();
-        console.log("wtf");
     };

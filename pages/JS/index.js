@@ -144,9 +144,10 @@ document.getElementById("loginSubmitButton").addEventListener("click", async () 
     try {
         await signInWithEmailAndPassword(auth, email, password);
         $('#loginModal').modal('hide'); // Hide modal on successful login
+        showToast("Succesvol ingelogd!");
     } catch (error) {
         console.error("Login error:", error);
-        showToast("Login failed. Please check your credentials.");
+        showToast("Inloggen mislukt. Controleer je gegevens.");
     }
 });
 
@@ -188,6 +189,7 @@ onAuthStateChanged(auth, async (user) => {
 logoutButton.addEventListener("click", async () => {
     await signOut(auth);
     window.location.reload(); // Reload to reflect changes in the UI
+    showToast("Succesvol uitgelogd!");
 });
 
 // Fetch user's points from Firestore
@@ -315,7 +317,7 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
         console.log("Registration and login successful!");
     } catch (error) {
         console.error("Registration error:", error);
-        alert("Registration failed. Please check the details and try again.");
+        showToast("Registreren mislukt. Controleer je gegevens.");
     }
 });
 
