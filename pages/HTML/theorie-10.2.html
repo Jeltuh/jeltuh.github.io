@@ -10,8 +10,9 @@
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <!--  -->
 
-    <link rel="stylesheet" href="./pages/CSS/index.css">
-    <title>Placeholder | Theorie 8.1</title>
+    <link rel="stylesheet" href="../../styles/theorie.css">
+    <script src="../JS/functions.js"></script>
+    <title>Placeholder | Theorie</title>
 </head>
 
 <body>
@@ -37,17 +38,9 @@
                             <a class="dropdown-item" href="./library.html">Alle opdrachten</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Theorie
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="./theorievwo4.html">Getal en Ruimte VWO 4</a>
-                            <a class="dropdown-item" href="./theorievwo5.html">Getal en Ruimte VWO 5</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="./theorie.html">Alle theorie</a>
-                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="./theorie.html">Theorie</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="./hoewerkthet.html">Hoe werkt het?</a>
@@ -78,18 +71,47 @@
         </nav>
     </header>
 
-    <br><br><br><br><br>
+    <br><br><br><br>
 
     <!-- Hier beginnen met typen -->
-        
-    <div>
-        <img src="../../assets/theorie-8.1-A.png" alt="Dit kon niet geladen worden :/">
+    <div class="container-fluid">
+        <div class="vertical-nav">
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="theorie.html">Hoofdpagina Theorie</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="theorie-8.1.html">Eenheidscirkel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Raaklijnen</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="theorie-10.1.html">Vectoren</a>
+                </li>
+            </ul>
+        </div>
+        <div class="content">
+            <h1>Welkom bij pagina 2 over Vectoren.</h1>
+            <p><br>Heb je deze Theorie onder de knie? Klik op de pijl om door te gaan met vectoren.</p>
+            <div class="buttons">
+                <!-- Modal Bijlage -->
+                    <a onclick="open_theorie(10.2)" id="next-arrow" class="arrow-button">&#x2192;</a>
+                    <a onclick="open_theorie(10.1)" id="previous-arrow" class="arrow-button">&#x2190;</a>                
+            </div>
+            <p><br>Vector a (van de oorsprong naar punt A) is genoteerd als (5,3) als punt A op X = 5 en Y = 3
+                ligt. Deze vector a kan je met 90° rechts- of linksom draaien. Dit is te gebruiken bij het</p>
+            <p>berekenen van zijdes van een vierkant. Om een vector 90° te draaien, wissel je eerst de X en de Y
+                om. Dit wordt dus de vector (3,5). Dan zet je een min voor de X of de Y, wat afhangt van welke kant</p>
+            <p>je de vector opdraait. Rechtsom zet je een min voor de Y-waarde. Dit zou dus de vector (3,-5) worden.
+                Linksom wordt de X-waarde negatief en dit wordt dus de vector (-3,5).</p>
+            <p><b>Let op!</b> Als de X- of Y-waarde al negatief was (bijvoorbeeld (-3,5)), dan wordt
+            de waarde bij het omdraaien niet weer negatief maar positief</p>
+            <p>(bij rechtsom draaien wordt dit dus (5,3) en niet (5,-3)).</p>
+            <img src="../../assets/vectoren/Theorie-10.2.png" style="width: 700px;">
+        </div>
     </div>
 
-    <div>
-        <img src="../../assets/theorie-8.1-A2.png" alt="Dit kon niet geladen worden :/">
-    </div>
-    
 
     <!--Script for Bootstrap-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
