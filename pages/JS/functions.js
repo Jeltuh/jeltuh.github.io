@@ -19,7 +19,7 @@ function open_theorie(i) {
 function open_theorie_newwindow(i) {
     let text = i.toString();
     var opdracht = "theorie-" + text + ".html";
-    window.open(opdracht, 'newwindow', 'width=910,height=780');
+    window.open(opdracht, 'newwindow', 'width=1050,height=780');
 }
 
 function ehc_opgave(i) {

@@ -408,10 +408,10 @@ function correctAnswer() {
     if (questionId === 1) {
         Answer = "Q(7(1)/(3),5(1)/(3)) en R(6(1)/(3),6(2)/(3))";
     }
-    if (questionId === 2) {
+    if (questionId === 3) {
         Answer = "N(9(1)/(2),8(1)/(2))";
     }
-    else if (questionId === 3) {
+    else if (questionId === 2) {
         Answer = "1";
     }
     else if (questionId === 4) {
@@ -494,12 +494,24 @@ function loadQuestionContent() {
             <p style="margin-bottom:0;">Gegeven is het vierkant ABCD met A(3, 0) en D(0, 4). Op zijde BC liggen de punten P en S waarbij BP = PS = SC.</p>
             <p style="margin : 0; padding-top:0;">PS is een zijde van het vierkant PQRS.<p/>
             <p style="margin : 0; padding-top:0;">Zie de figuur.</p>
-            <p>Bereken de coördinaten van de punten Q en R.</p>
+            <p><b>Bereken de coördinaten van de punten Q en R.</b></p>
             <br>
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <div class="knoppen">
+                <button type="button" class="btn btn-primary btn-lg" onclick="open_theorie_newwindow(10.1)">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/vectoren/vector-1-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
+            </div
 
                 <br><br>
 
@@ -556,12 +568,24 @@ function loadQuestionContent() {
                 </form>
                     <p id="feedback" class="hidden"></p>
                 </div>
-                                <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <p>Open hier de bijbehorende theorie.</p>
+                <div class="knoppen">
+                <button type="button" class="btn btn-primary btn-lg" onclick="open_theorie_newwindow(10.1)">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/vectoren/vector-2-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
+            </div
                 
             </div>
         </div>
-
+        
         <div class="wrapper">
         <div class="push"></div>
         </div> 
@@ -581,7 +605,19 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <div class="knoppen">
+                <button type="button" class="btn btn-primary btn-lg" onclick="open_theorie_newwindow(10.1)">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/vectoren/vector-3-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
+            </div>
 
                 <br><br>
 
@@ -618,7 +654,19 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <div class="knoppen">
+                <button type="button" class="btn btn-primary btn-lg" onclick="open_theorie_newwindow(10.1)">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/vectoren/vector-4-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
+            </div>
 
                 <br><br>
 
@@ -627,42 +675,6 @@ function loadQuestionContent() {
                     <button type="button" id="submit-btn">Submit</button>
                     <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) voor Q:</i></p>
                     <p><img src="../../assets/notatie-voorbeeld.png"></p>
-                    <p id="feedback" class="hidden"></p>
-                </div>
-                
-            </div>
-        </div>
-
-        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/xdj3t7es/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
-            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
-
-        <div class="wrapper">
-        <div class="push"></div>
-        </div>
-`;}
-        else if (questionId === 5) {
-            questionContainer.innerHTML = `
-            <div class="question">
-            <h3>Opdracht 4</h3>
-            <br>
-            <p><i>Deze opdracht komt overeen met vraag 10.16 in je werkboek.</i></p>
-            <br>
-            <p>Gegeven zijn de punten A(0, 2) en B(8, 4).</p>
-            <p>VHet punt M is het midden van het lijnstuk AB. Ook is het vierkant MBCD getekend.<p/>
-            <p><b>Bereken de coördinaten van het midden N van het vierkant.</b></p>
-            <br>
-
-            <div class="buttons">
-                <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
-
-                <br><br>
-
-                <div class="question">
-                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
-                    <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -811,7 +823,7 @@ function loadQuestionContent() {
 
             // Redirect the user back to their latestQuestion
             window.location.href = `${lessonId}.html?id=${latestQuestion}`;
-        }
+        }   
     }
 
     // Example usage with a fetched latestQuestion value
@@ -846,7 +858,8 @@ function loadQuestionContent() {
             // Reference navigation buttons
             const prevButton = document.getElementById("previous");
             const nextButton = document.getElementById("next");
-            const submitButton = document.getElementById("submit-btn")
+            const submitButton = document.getElementById("submit-btn");
+            const uitwerkingenButton = document.getElementById("uitwerkingen");
 
             // Handle the previous button
             if (questionId === 1) {
@@ -866,12 +879,12 @@ function loadQuestionContent() {
 
             // Handle the next button
             if (nextButton) {
-                if (latestQuestion == 6 && currentQuestion == 5) {
+                if (latestQuestion == 5 && currentQuestion == 4) {
                     replaceButton();
-                    console.log("jup");
                 }
                 else if (latestQuestion > questionId) {
                     nextButton.style.visibility = "visible"; // Show next button
+                    uitwerkingenButton.style.visibility = "visible";
                     nextButton.onclick = async function () {
                         const nextQuestion = questionId + 1;
                         await updateDoc(lessonRef, { current_question: nextQuestion });

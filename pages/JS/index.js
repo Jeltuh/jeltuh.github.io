@@ -188,7 +188,6 @@ onAuthStateChanged(auth, async (user) => {
 // Logout button in the account dropdown
 logoutButton.addEventListener("click", async () => {
     await signOut(auth);
-    window.location.reload(); // Reload to reflect changes in the UI
     showToast("Succesvol uitgelogd!");
 });
 
@@ -354,13 +353,13 @@ document.getElementById("nameForm").addEventListener("submit", async (e) => {
 
     if (user) {
         if (!firstName || !lastName) {
-            alert("All fields must be filled.");
+            alert("Alle velden moeten ingevuld zijn.");
             return;
         }
         // Update Firestore data
         const userDocRef = doc(db, "users", user.uid);
         await updateDoc(userDocRef, { firstName, lastName });
-        alert("Name details updated successfully.");
+        showToast("Account gegevens succesvol geüpdate!");
     }
 });
 
@@ -376,11 +375,11 @@ document.getElementById("passwordForm").addEventListener("submit", async (e) => 
     if (user) {
         // Password change validation and process
         if (!oldPassword || !newPassword || !confirmNewPassword) {
-            alert("To change the password, all password fields must be filled.");
+            showToast("Alle velden moeten ingevuld zijn.");
             return;
         }
         if (newPassword !== confirmNewPassword) {
-            alert("New passwords do not match.");
+            showToast("Wachtworden komen niet overeen.");
             return;
         }
 
@@ -388,9 +387,9 @@ document.getElementById("passwordForm").addEventListener("submit", async (e) => 
         try {
             await reauthenticateWithCredential(user, credential);
             await updatePassword(user, newPassword);
-            alert("Password updated successfully.");
+            showToast("Wachtwoord succesvol geüpdate.");
         } catch (error) {
-            alert("Failed to reauthenticate. Please check your current password.");
+            showToast("Wachtwoord veranderen mislukt, controleer je gegevens.");
             console.error("Reauthentication error:", error);
         }
     }
@@ -404,7 +403,7 @@ document.getElementById("logoutButton").addEventListener("click", async (e) => {
         $('#accountModal').modal('hide');
     } catch (error) {
         console.error("Logout error:", error);
-        alert("Logout failed. Please try again.");
+        showToast("Uitloggen mislukt, probeer opnieuw.");
     }
 });
 
@@ -422,7 +421,7 @@ document.getElementById("logoutButton2").addEventListener("click", async (e) => 
         $('#accountModal').modal('hide');
     } catch (error) {
         console.error("Logout error:", error);
-        alert("Logout failed. Please try again.");
+        showToast("Uitloggen mislukt, probeer opnieuw.");
     }
 });
 

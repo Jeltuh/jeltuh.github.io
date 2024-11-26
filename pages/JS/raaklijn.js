@@ -498,7 +498,23 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
+                <div class="knoppen">
                 <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/raaklijn/raaklijn-1-uitwerkingen1.png" width="50%" height="80%">
+                        <img src="../../assets/raaklijn/raaklijn-1-uitwerkingen2.png" width="50%" height="80%">
+                    </div>
+                </div>
+            </div>
+            </div
+            <br>
+            <br>
+                </div>
                 </div>
 
 
@@ -538,7 +554,18 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
+                <div class="knoppen">
                 <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/raaklijn/raaklijn-2-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
 
                 <br><br>
 
@@ -576,7 +603,18 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
+                <div class="knoppen">
                 <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/raaklijn/raaklijn-3-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
 
                 <br><br>
 
@@ -613,7 +651,18 @@ function loadQuestionContent() {
 
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
+                <div class="knoppen">
                 <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                <button type="button" id="uitwerkingen" class="btn btn-primary btn-lg" data-toggle="modal" data-target=".bd-example-modal-lg" style="visibility:hidden;">Uitwerkingen</button>
+                
+            <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <img src="../../assets/raaklijn/raaklijn-4-uitwerkingen.png">
+                    </div>
+                </div>
+            </div>
 
                 <br><br>
 
@@ -635,43 +684,7 @@ function loadQuestionContent() {
         <div class="push"></div>
         </div>
 `;}
-        else if (questionId === 5) {
-            questionContainer.innerHTML = `
-            <div class="question">
-            <h3>Opdracht 4</h3>
-            <br>
-            <p><i>Deze opdracht komt overeen met vraag 2.30 in je werkboek.</i></p>
-            <br>
-            <p>Gegeven zijn de functies <img src="../../assets/raaklijn/raaklijn-4-vraag1.png" width="140" height="50"> en <img src="../../assets/raaklijn/raaklijn-4-vraag2.png" width="140" height="30"></p>
-            <p style="margin-bottom:0;">De grafieken van f en g snijden elkaar in het punt S.</p>
-            <p>De lijn k raakt de grafiek in S en de lijn l raakt de grafiek van g in S.<p/>
-            <p><b>Stel van zowel k als van l de formule op.</b></p>
-            <br>
 
-            <div class="buttons">
-                <p>Open hier de bijbehorende theorie.</p>
-                <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
-
-                <br><br>
-
-                <div class="question">
-                    <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
-                    <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
-                    <p id="feedback" class="hidden"></p>
-                </div>
-                
-            </div>
-        </div>
-
-        <iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
-            src="https://www.geogebra.org/material/iframe/id/gnujkne9/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/true/ld/false/sdz/true/ctl/false"
-            width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
-
-        <div class="wrapper">
-        <div class="push"></div>
-        </div>
-`;}
 
 
 
@@ -842,6 +855,7 @@ function loadQuestionContent() {
             const prevButton = document.getElementById("previous");
             const nextButton = document.getElementById("next");
             const submitButton = document.getElementById("submit-btn");
+            const uitwerkingenButton = document.getElementById("uitwerkingen");
 
 
             // Handle the previous button
@@ -862,10 +876,11 @@ function loadQuestionContent() {
 
             // Handle the next button
             if (nextButton) {
-                if (latestQuestion == 6 && currentQuestion == 5) {
+                if (latestQuestion == 5 && currentQuestion == 4) {
                     replaceButton();
                 }
                 else if (latestQuestion > questionId) {
+                    uitwerkingenButton.style.visibility = "visible";
                     nextButton.style.visibility = "visible"; // Show next button
                     nextButton.onclick = async function () {
                         const nextQuestion = questionId + 1;

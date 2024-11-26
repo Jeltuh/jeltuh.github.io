@@ -187,8 +187,8 @@ async function resetLessonStatistics() {
                 // Reset lesson-level fields
                 await updateDoc(lessonRef, {
                     completed: false,
-                    current_question: 0,
-                    latestQuestion: 0,
+                    current_question: 1,
+                    latestQuestion: 1,
                 });
 
                 console.log("Lesson-level statistics reset successfully!");

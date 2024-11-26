@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./styles/index.css">
     <link rel="stylesheet" href="./styles/toast.css">
     <title>VECTORIUM | Homepage</title>
-    <link rel="shortcut icon" type="image/x-icon" href="/assets/Vectorium Logo Klein.png" >
+    <link rel="shortcut icon" type="image/x-icon" href="/assets/Vectorium Logo Klein Blauw.png" >
     <link href="https://db.onlinewebfonts.com/c/a5e88382f630f5489da535b2471fc7b0?family=Arame-Stencil" rel="stylesheet">
 </head>
 
@@ -28,12 +28,12 @@
                         Account
                     </button>
                     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdown">
-                        <li><a href="/pages/HTML/leaderboard.html"><span class="dropdown-item">Punten: <span id="accountPoints"><span class="dropdown-item">Points: <span id="accountPoints">0</span></span></a></li>
+                        <li><a href="/pages/HTML/leaderboard.html"><span class="dropdown-item">Punten: <span id="accountPoints"><span class="dropdown-item">Punten: <span id="accountPoints">0</span></span></a></li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
-                        <li><button id="openAccountModal" class="dropdown-item">Personal details</button></li>
-                        <li><button id="logoutButton" class="dropdown-item">Logout</button></li>
+                        <li><button id="openAccountModal" class="dropdown-item">Persoonlijke Gegevens</button></li>
+                        <li><button id="logoutButton" class="dropdown-item">Uitloggen</button></li>
                     </div>
                     </div>
 
@@ -118,22 +118,21 @@
                                             <div class="tab-content">
                                                 <!-- Account Details Section -->
                                                 <div class="tab-pane fade show active" id="accountDetails">
-                                                    <h3>Account Details</h3>
+                                                    <h3>Account Gegevens</h3>
 
                                                     <!-- First Name and Last Name Update Form -->
                                                     <form id="nameForm">
                                                         <div class="form-group">
-                                                            <label for="firstName">First Name</label>
+                                                            <label for="firstName">Voornaam</label>
                                                             <input type="text" class="form-control" id="firstName"
                                                                 placeholder="Enter first name">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="lastName">Last Name</label>
+                                                            <label for="lastName">Achternaam</label>
                                                             <input type="text" class="form-control" id="lastName"
                                                                 placeholder="Enter last name">
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary">Save Name
-                                                            Changes</button>
+                                                        <button type="submit" class="btn btn-primary">Opslaan</button>
                                                     </form>
 
                                                     <hr>
@@ -142,23 +141,22 @@
                                                     <form id="passwordForm">
                                                         <h5>Change Password</h5>
                                                         <div class="form-group">
-                                                            <label for="oldPassword">Current Password</label>
+                                                            <label for="oldPassword">Huidig Wachtwoord</label>
                                                             <input type="password" class="form-control" id="oldPassword"
-                                                                placeholder="Enter current password">
+                                                                placeholder="Vul je huidge wachtwoord in">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="newPassword">New Password</label>
+                                                            <label for="newPassword">Nieuw Wachtwoord</label>
                                                             <input type="password" class="form-control" id="newPassword"
-                                                                placeholder="Enter new password">
+                                                                placeholder="bijv. Paard123!">
                                                         </div>
                                                         <div class="form-group">
-                                                            <label for="confirmNewPassword">Confirm New Password</label>
+                                                            <label for="confirmNewPassword">Bevestig Nieuw Wachtwoord</label>
                                                             <input type="password" class="form-control"
                                                                 id="confirmNewPassword"
-                                                                placeholder="Confirm new password">
+                                                                placeholder="bijv. Paard123!">
                                                         </div>
-                                                        <button type="submit" class="btn btn-primary">Save Password
-                                                            Changes</button>
+                                                        <button type="submit" class="btn btn-primary">Opslaan</button>
                                                     </form>
                                                 </div>
                                             </div>
@@ -185,7 +183,7 @@
 
     <div class="jumbotron">
         <h1 class="display-4">Hallo <span id="displayFirstName"></span>!</h1>
-        <p class="lead">Welkom op de website van <a style="font-family: Arame-Stencil;">VECTORIUM</a>, de beste methode om jouw wiskunde skills te beoefenen.</p>
+        <p class="lead">Welkom op de website van <a style="font-family: Arame-Stencil;">VECTORIUM</a>, jouw ultieme methode voor het leren van wiskunde!</p>
         <hr class="my-4">
         <p id="index-message">Klik hier om in te loggen op de website.</p>
         <a class="btn btn-primary btn-lg" role="button" id="inloggen" style="color: white;">Inloggen</a>
