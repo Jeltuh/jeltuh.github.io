@@ -649,6 +649,42 @@ function loadQuestionContent() {
 </body>
 </html>`;}
 
+else if (questionId === 5) {
+    questionContainer.innerHTML = `
+    <div class="question">
+    <h3>Opdracht 4</h3>
+    <br>
+    <p><i>Deze opdracht komt overeen met vraag 10.16 in je werkboek.</i></p>
+    <br>
+    <p>Gegeven zijn de punten A(0, 2) en B(8, 4).</p>
+    <p>VHet punt M is het midden van het lijnstuk AB. Ook is het vierkant MBCD getekend.<p/>
+    <p><b>Bereken de coördinaten van het midden N van het vierkant.</b></p>
+    <br>
+
+    <div class="buttons">
+        <p>Open hier de bijbehorende theorie.</p>
+        <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+
+        <br><br>
+
+        <div class="question">
+            <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
+            <button type="button" id="submit-btn">Submit</button>
+            <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+            <p id="feedback" class="hidden"></p>
+        </div>
+        
+    </div>
+</div>
+
+<iframe scrolling="no" frameBorder="0" title="Eenheidscirkel"
+    src="https://www.geogebra.org/material/iframe/id/xdj3t7es/width/1000/height/569/border/ffffff/sfsb/false/smb/false/stb/false/stbh/false/ai/false/asb/false/sri/false/rc/false/ld/false/sdz/false/ctl/false"
+    width="80%" height="50%" style="position: absolute; right: -28%; top:20%"> </iframe>
+
+<div class="wrapper">
+<div class="push"></div>
+</div>
+`;}
 
          else {
             questionContainer.innerHTML = `
@@ -837,7 +873,7 @@ function loadQuestionContent() {
 
             // Handle the next button
             if (nextButton) {
-                if (currentQuestion == 5) {
+                if (latestQuestion == 6 && currentQuestion == 5) {
                     replaceButton();
                 }
                 else if (latestQuestion > questionId) {
@@ -877,10 +913,6 @@ function loadQuestionContent() {
         updateButtons();
     }
 
-    const tester = document.getElementById("goed");
-    tester.addEventListener("click", async () => {
-        correct();
-    });
     // Call the function when the page loads
 
 

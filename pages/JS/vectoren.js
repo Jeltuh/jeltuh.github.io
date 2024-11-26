@@ -406,12 +406,12 @@ var Answer = 0;
 
 function correctAnswer() {
     if (questionId === 1) {
-        Answer = "Q(7(1)/(3),5(1)/(3)) en R(6(1)/(3),6(2)/(3))";
+        Answer = "h(x)=x^(2)-4x+7";
     }
-    if (questionId === 3) {
+    if (questionId === 2) {
         Answer = "N(9(1)/(2),8(1)/(2))";
     }
-    else if (questionId === 2) {
+    else if (questionId === 3) {
         Answer = "1";
     }
     else if (questionId === 4) {
@@ -866,8 +866,9 @@ function loadQuestionContent() {
 
             // Handle the next button
             if (nextButton) {
-                if (currentQuestion === 5) {
+                if (latestQuestion == 6 && currentQuestion == 5) {
                     replaceButton();
+                    console.log("jup");
                 }
                 else if (latestQuestion > questionId) {
                     nextButton.style.visibility = "visible"; // Show next button
@@ -906,10 +907,6 @@ function loadQuestionContent() {
         updateButtons();
     }
 
-    const tester = document.getElementById("goed");
-    tester.addEventListener("click", async () => {
-        correct();
-    });
     // Call the function when the page loads
 
 

@@ -499,12 +499,14 @@ function loadQuestionContent() {
             <div class="buttons">
                 <p>Open hier de bijbehorende theorie.</p>
                 <button type="button" class="btn btn-primary btn-lg" onclick="naar_theorie_8_1()">Theorie</button>
+                </div>
+
 
                 <br><br>
 
                 <div class="question">
                     <input style="visibility: hidden" id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord..." value=" ">
-                    <button type="button" id="submit-btn">Submit</button>
+                    <button type="button" id="submit-btn">VOLTOOID</button>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -858,7 +860,7 @@ function loadQuestionContent() {
 
             // Handle the next button
             if (nextButton) {
-                if (currentQuestion === 10) {
+                if (latestQuestion == 6 && currentQuestion == 5) {
                     replaceButton();
                 }
                 else if (latestQuestion > questionId) {
@@ -898,10 +900,6 @@ function loadQuestionContent() {
         updateButtons();
     }
 
-    const tester = document.getElementById("goed");
-    tester.addEventListener("click", async () => {
-        correct();
-    });
     // Call the function when the page loads
 
 
