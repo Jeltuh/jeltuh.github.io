@@ -406,7 +406,7 @@ var Answer = 0;
 
 function correctAnswer() {
     if (questionId === 1) {
-        Answer = "h(x)=x^(2)-4x+7";
+        Answer = "Q(7(1)/(3),5(1)/(3)) en R(6(1)/(3),6(2)/(3))";
     }
     if (questionId === 2) {
         Answer = "N(9(1)/(2),8(1)/(2))";

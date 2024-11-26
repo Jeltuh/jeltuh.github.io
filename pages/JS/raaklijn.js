@@ -408,14 +408,14 @@ function correctAnswer() {
     if (questionId === 1) {
         Answer = " ";
     }
-    if (questionId === 3) {
-        Answer = "N(9(1)/(2),8(1)/(2))";
+    if (questionId == 2) {
+        Answer = "h(x)=x^(2)-4x+7";
     }
-    else if (questionId === 2) {
-        Answer = "1";
+    else if (questionId == 3) {
+        Answer = "S(0,73;2,82)";
     }
     else if (questionId === 4) {
-        Answer = "N(5(1)/(2),5(1)/(2))";
+        Answer = "k:y=-1,5x+9,5 en l:y=0,9x+2,3";
     }
     else {
     }
@@ -491,7 +491,7 @@ function loadQuestionContent() {
             <br>
             <p><i>Deze opdracht komt overeen met vraag 2.40 in je werkboek.</i></p>
             <br>
-            <p>Gegeven is de functie<i> f(x) = 0,1x3 + x2 - 6.</i></p>
+            <p>Gegeven is de functie <img src="../../assets/raaklijn/raaklijn-1-vraag.png" width="180" height="18""</p>
             <p  style="margin-bottom:0;"><b>a. Schets de hellinggrafiek van f in het GeoGebra scherm.</b></p>
             <p>b. De grafiek van ƒ is de hellinggrafiek van een functie g. <b>Teken een globale grafiek van g in het GeoGebra scherm.</b></p>
             <br>
@@ -529,9 +529,10 @@ function loadQuestionContent() {
             <br>
             <p><i>Deze opdracht komt overeen met vraag 2.41 in je werkboek.</i></p>
             <br>
-            <p>Gegeven is de functie<i> f(x) = x2-4x + 5 en g(x) = x2-4x-5</i></p>
+            <p>Gegeven is de functie<i><img src="../../assets/raaklijn/raaklijn-2-vraag.png" width="280" height="20"</i></p>
             <p  style="margin-bottom:0;"><b>a. Schets de hellinggrafiek van f en de hellinggrafiek van g in het GeoGebra scherm.</b></p>
-            <p>b. De hellinggrafiek van ƒ is ook de hellinggrafiek van een functie h. De grafiek van h gaat door het punt A(3, 4).</p>
+            <p>b. De hellinggrafiek van ƒ is ook de hellinggrafiek van een functie h.</p>
+            <p>De grafiek van h gaat door het punt A(3, 4).</p>
             <p><b>Stel de formule op van h.</b></p>
             <br>
 
@@ -544,6 +545,7 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
+                    <p><i>Tip: De manier van notatie is als volgt: h(x)=x^(5+6x)-5x+6</i></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -581,7 +583,7 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p><i>Tip: De manier van notatie is als volgt: S(5,60;5,60)</i></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
@@ -618,7 +620,7 @@ function loadQuestionContent() {
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
                     <button type="button" id="submit-btn">Submit</button>
-                    <p><i>Tip: De manier van notatie is als volgt: Q(1(2)/(3),5(4)/(5)) en R(...)</i></p>
+                    <p><i>Tip: De manier van notatie is als volgt: k:y=5,6x+9,5 en l:y=5,6x+9,5</i></p>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
