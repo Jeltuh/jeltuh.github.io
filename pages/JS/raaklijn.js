@@ -522,7 +522,7 @@ function loadQuestionContent() {
 
                 <div class="question">
                     <input style="visibility: hidden" id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord..." value=" ">
-                    <button type="button" id="submit-btn">VOLTOOID</button>
+                    <button type="button" id="submit-btn" style="width: 100%;">VOLTOOID</button>
                     <p id="feedback" class="hidden"></p>
                 </div>
                 
