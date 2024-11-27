@@ -189,6 +189,7 @@ onAuthStateChanged(auth, async (user) => {
 logoutButton.addEventListener("click", async () => {
     await signOut(auth);
     showToast("Succesvol uitgelogd!");
+    window.location.reload();
 });
 
 // Fetch user's points from Firestore
