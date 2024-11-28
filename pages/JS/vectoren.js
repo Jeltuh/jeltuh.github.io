@@ -477,6 +477,7 @@ async function incrementAttempts() {
 
 
 
+
 function loadQuestionContent() {
     const questionId = getQuestionIdFromUrl();
     const questionContainer = document.getElementById("body-text");
@@ -513,7 +514,7 @@ function loadQuestionContent() {
             </div>
             </div
 
-                <br><br>
+                <br><p id="hoop" style="visibility:hidden;">Lukt het niet? Je kan vanaf nu ook door naar de volgende vraag.</p>
 
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
@@ -568,6 +569,7 @@ function loadQuestionContent() {
                 </form>
                     <p id="feedback" class="hidden"></p>
                 </div>
+                <p id="hoop" style="visibility:hidden;">Lukt het niet? Je kan vanaf nu ook door naar de volgende vraag.</p>
                 <p>Open hier de bijbehorende theorie.</p>
                 <div class="knoppen">
                 <button type="button" class="btn btn-primary btn-lg" onclick="open_theorie_newwindow(10.1)">Theorie</button>
@@ -619,7 +621,7 @@ function loadQuestionContent() {
             </div>
             </div>
 
-                <br><br>
+                <br><p id="hoop" style="visibility:hidden;">Lukt het niet? Je kan vanaf nu ook door naar de volgende vraag.</p>
 
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
@@ -668,7 +670,7 @@ function loadQuestionContent() {
             </div>
             </div>
 
-                <br><br>
+                <br><p id="hoop" style="visibility:hidden;">Lukt het niet? Je kan vanaf nu ook door naar de volgende vraag.</p>
 
                 <div class="question">
                     <input id="antwoord" type="text" class="search-input" placeholder="Type hier je antwoord...">
@@ -722,13 +724,13 @@ function loadQuestionContent() {
                 const submitBtn = document.getElementById("submit-btn");
 
                 submitBtn.addEventListener("click", () => {
-                    incrementAttempts();
+                    
                     var answer = correctAnswer();
                     var chosenAnswer = getAnswer();
     
                     // If no option is selected, show a warning
                     if (!chosenAnswer) {
-                        feedback.textContent = "Please select an answer.";
+                        feedback.textContent = "Vul een antwoord in.";
                         feedback.style.color = "red";
                         feedback.classList.remove("hidden");
                         return;
@@ -738,16 +740,20 @@ function loadQuestionContent() {
     
                     // Check if the selected answer is correct
                     if (chosenAnswer == answer) {
+                        incrementAttempts();
                         feedback.textContent = "Correct!";
                         feedback.style.color = "green";
                         submitBtn.disabled = true;
                         correct();
                     } else {
+                        incrementAttempts();
                         feedback.textContent = "Helaas, probeer het opnieuw.";
                         feedback.style.color = "red";
+                        showButtonsWhenAttempts();
                     }
     
                     feedback.classList.remove("hidden");
+                    
                 });
     }
 
@@ -844,6 +850,32 @@ function loadQuestionContent() {
     fetchAndCheckQuestionAccess();
 
 
+    
+async function showButtonsWhenAttempts() {
+    try {
+        // Reference to the specific question
+        const questionRef = await getQuestionRef();
+
+        // Get the current question data
+        const questionSnap = await getDoc(questionRef);
+
+        // If the question exists, increment the attempts
+        const currentAttempts = questionSnap.data().attempts || 0;
+        if(currentAttempts > 1){
+            correctExtra();
+            const button = document.getElementById("hoop");
+            button.style.visibility = "visible";
+        }
+        else{
+        }
+        
+
+    } catch (error) {
+        console.error("error"), error;
+    }
+}
+
+
     async function updateButtons() {
         try {
             // Get the current question ID
@@ -877,6 +909,11 @@ function loadQuestionContent() {
                 submitButton.disabled = true;
             }
 
+            if (latestQuestion > questionId) {
+                uitwerkingenButton.style.visibility = "visible";
+
+            }
+
             // Handle the next button
             if (nextButton) {
                 if (latestQuestion == 5 && currentQuestion == 4) {
@@ -884,7 +921,6 @@ function loadQuestionContent() {
                 }
                 else if (latestQuestion > questionId) {
                     nextButton.style.visibility = "visible"; // Show next button
-                    uitwerkingenButton.style.visibility = "visible";
                     nextButton.onclick = async function () {
                         const nextQuestion = questionId + 1;
                         await updateDoc(lessonRef, { current_question: nextQuestion });
@@ -900,6 +936,62 @@ function loadQuestionContent() {
         }
     }
 
+    async function updateButtonsExtra() {
+        try {
+            // Get the current question ID
+            const questionId = getQuestionIdFromUrl();
+
+            // Get the lesson reference for updating progress
+            const lessonRef = await getLessonRef();
+            const docSnap = await getDoc(lessonRef);
+            const latestQuestion = docSnap.exists() ? docSnap.data().latestQuestion : 0;
+            const currentQuestion = docSnap.exists() ? docSnap.data().current_question : 0;
+
+            // Reference navigation buttons
+            const prevButton = document.getElementById("previous");
+            const nextButton = document.getElementById("next");
+            const submitButton = document.getElementById("submit-btn");
+            const uitwerkingenButton = document.getElementById("uitwerkingen");
+
+            // Handle the previous button
+            if (questionId === 1) {
+                prevButton.style.visibility = "hidden"; // Hide previous button
+            } else {
+                prevButton.style.visibility = "visible"; // Show previous button
+                prevButton.onclick = async function () {
+                    const previousQuestion = questionId - 1;
+                    await updateDoc(lessonRef, { current_question: previousQuestion });
+                    window.location.href = `${lessonId}.html?id=${previousQuestion}`;
+                };
+            }
+            
+
+            if (latestQuestion > questionId) {
+                uitwerkingenButton.style.visibility = "visible";
+
+            }
+
+            // Handle the next button
+            if (nextButton) {
+                if (latestQuestion == 5 && currentQuestion == 4) {
+                    replaceButton();
+                }
+                else if (latestQuestion > questionId) {
+                    nextButton.style.visibility = "visible"; // Show next button
+                    nextButton.onclick = async function () {
+                        const nextQuestion = questionId + 1;
+                        await updateDoc(lessonRef, { current_question: nextQuestion });
+                        window.location.href = `${lessonId}.html?id=${nextQuestion}`;
+                    };
+                } else {
+                    nextButton.style.visibility = "hidden"; // Hide next button if no more questions
+
+                }
+            }
+        } catch (error) {
+            console.error("Error initializing navigation buttons:", error);
+        }
+    }
 
 
     function laadOpdracht() {
@@ -920,6 +1012,13 @@ function loadQuestionContent() {
         updateButtons();
     }
 
+    async function correctExtra() {
+        const lessonRef = await getLessonRef();
+        const questionId = getQuestionIdFromUrl();
+        const nextQuestion = questionId + 1;
+        await updateDoc(lessonRef, { latestQuestion: nextQuestion });
+        updateButtonsExtra();
+    }
     // Call the function when the page loads
 
 

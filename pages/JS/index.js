@@ -315,6 +315,7 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
         registerModal.hide(); // Close the register modal
 
         console.log("Registration and login successful!");
+        showToast("Succesvol geregistreerd!")
     } catch (error) {
         console.error("Registration error:", error);
         showToast("Registreren mislukt. Controleer je gegevens.");

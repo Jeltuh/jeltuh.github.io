@@ -96,7 +96,7 @@ const auth = getAuth(app);
                         } else {
                             // Handle case where lesson data doesn't exist
                             console.error("Lesson data not found for user:", userId, "and lessonId:", lessonId);
-                            button.textContent = "START";
+                            button.textContent = "NOG IN ONTWIKKELING";
                             button.onclick = () => {
                                 window.location.href = `${lessonId}.html?id=1`;
                             };

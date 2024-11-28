@@ -722,7 +722,7 @@ else if (questionId === 5) {
     
                     // If no option is selected, show a warning
                     if (!chosenAnswer) {
-                        feedback.textContent = "Please select an answer.";
+                        feedback.textContent = "Vul een antwoord in.";
                         feedback.style.color = "red";
                         feedback.classList.remove("hidden");
                         return;
@@ -836,6 +836,30 @@ else if (questionId === 5) {
     }
 
     fetchAndCheckQuestionAccess();
+
+    async function showButtonsWhenAttempts() {
+        try {
+            // Reference to the specific question
+            const questionRef = await getQuestionRef();
+    
+            // Get the current question data
+            const questionSnap = await getDoc(questionRef);
+    
+            // If the question exists, increment the attempts
+            const currentAttempts = questionSnap.data().attempts || 0;
+            if(currentAttempts > 2){
+                correct();
+                const button = document.getElementById("hoop");
+                button.style.visibility = "visible";
+            }
+            else{
+            }
+            
+    
+        } catch (error) {
+            console.error("error"), error;
+        }
+    }
 
 
     async function updateButtons() {
