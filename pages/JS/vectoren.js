@@ -202,7 +202,7 @@ document.getElementById("openRegisterModal").addEventListener("click", () => {
     registerModal.show(); // Show the register modal
 });
 
-// Register button event listener
+// Event listener
 document.getElementById("registerSubmitButton").addEventListener("click", async () => {
     const firstName = document.getElementById("firstNameInput").value;
     const lastName = document.getElementById("lastNameInput").value;
@@ -210,34 +210,32 @@ document.getElementById("registerSubmitButton").addEventListener("click", async 
     const password = document.getElementById("registerPasswordInput").value;
 
     try {
-        // Register the user with Firebase Auth
+        // Register the user
         const userCredential = await createUserWithEmailAndPassword(auth, email, password);
         const user = userCredential.user;
 
-        // Save additional user info (e.g., name) to Firestore
         await setDoc(doc(db, "users", user.uid), {
             firstName: firstName,
             lastName: lastName,
             email: email,
-            points: 0 // Initialize points to 0
+            points: 0 
         });
 
-        // Initialize the lessons collection for the user with 'lessonehc' and 'raaklijn'
+        // Initialize the lessons
         const lessonsRef = doc(db, "users", user.uid, "lessons", "lessonehc");
         await setDoc(lessonsRef, {
             completed: false,
-            current_question: 1, // Starting with the first question
-            latestQuestion: 1 // Set to the first question as well
+            current_question: 1,
+            latestQuestion: 1 
         });
 
         const lessonsRef2 = doc(db, "users", user.uid, "lessons", "raaklijn");
         await setDoc(lessonsRef2, {
             completed: false,
-            current_question: 1, // Starting with the first question
-            latestQuestion: 1 // Set to the first question as well
+            current_question: 1,
+            latestQuestion: 1 
         });
 
-        // Automatically log the user in after registration
         registerModal.hide(); // Close the register modal
 
         console.log("Registration and login successful!");
@@ -810,8 +808,6 @@ function loadQuestionContent() {
         newButton.id = "next"
         newButton.classList.add('btn', 'btn-success');
         newButton.innerText = 'Inleveren';
-
-
 
         // Replace the old button with the new one
         oldButton.parentNode.replaceChild(newButton, oldButton);
